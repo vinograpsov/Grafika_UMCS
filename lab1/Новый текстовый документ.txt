@@ -1,0 +1,7 @@
+a.exec - pozwala nie zakrywat plot 
+MainWindow - glowne okienko 
+Ui - obiect ktory rozmiszca elemientty 
+Qrgb  это представление пикселя в ргб и как рза имееет 4 бита для представления нужых нам синего зеленого красного и альфа 
+и при вычитании простом будет изменяться толькро синий канал 
+AARRGGBB
+надо с ку епб достать каждого из этих байтив 
