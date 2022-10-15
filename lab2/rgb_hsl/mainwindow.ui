@@ -25,7 +25,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QSlider" name="horizontalSlider_2">
+      <widget class="QSlider" name="hSlider">
        <property name="minimum">
         <number>-180</number>
        </property>
@@ -38,7 +38,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSlider" name="horizontalSlider_3">
+      <widget class="QSlider" name="sSlider">
        <property name="minimum">
         <number>-100</number>
        </property>
@@ -51,7 +51,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSlider" name="horizontalSlider">
+      <widget class="QSlider" name="lSlider">
        <property name="minimum">
         <number>-100</number>
        </property>
@@ -64,7 +64,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="image">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -86,14 +86,14 @@
     <property name="title">
      <string>file</string>
     </property>
-    <addaction name="actionopen"/>
+    <addaction name="actionOpen"/>
    </widget>
    <addaction name="menufile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionopen">
+  <action name="actionOpen">
    <property name="text">
-    <string>open</string>
+    <string>Open</string>
    </property>
   </action>
  </widget>

@@ -17,6 +17,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void openImage();
+
+
+private slots:
+    void on_actionOpen_triggered();
+
+    void on_hSlider_actionTriggered(int action);
+
+    void on_lSlider_actionTriggered(int action);
+
+    void on_sSlider_actionTriggered(int action);
+
 private:
     Ui::MainWindow *ui;
 };

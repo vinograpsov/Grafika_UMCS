@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 
+#include <QFileDialog>
+
 float tC(float x){
     if(x < 0){
         return x + 1;
@@ -106,6 +108,34 @@ void hslToRgb(float h, float s, float l,unsigned char *r, unsigned char *g, unsi
 }
 
 
+void hslCollors(const QImage &src, QImage &dst, float h, float s, float l){
+    for(int y = 0; y < src.height(); y++){
+        QRgb *pixel_src = (QRgb*)src.scanLine(y);
+        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+
+        for(int x = 0; x < src.width(); x++){
+            unsigned char r = qRed(pixel_src[x]);
+            unsigned char g = qGreen(pixel_src[x]);
+            unsigned char b = qBlue(pixel_src[x]);
+
+            float fh;
+            float fs;
+            float fl;
+
+            rgbToHsl(r,g,b,&fh,&fs,&fl);
+
+            h += fh;
+            s += fs;
+            l += fl;
+
+            hslToRgb(h,s,l,&r,&g,&b);
+
+            pixel_dst[x] = qRgb(r,g,b);
+        }
+    }
+}
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -129,5 +159,39 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::openImage(){
+    QString fileName = QFileDialog::getOpenFileName();
+
+    if (!fileName.isNull()) {
+        originalImage.load(fileName);
+        processImage = originalImage;
+        ui->image->setPixmap(QPixmap::fromImage(processImage));
+    }
+}
+
+
+void MainWindow::on_actionOpen_triggered()
+{
+    openImage();
+}
+
+
+void MainWindow::on_hSlider_actionTriggered(int h)
+{
+    hslCollors(originalImage, processImage, h, ui->sSlider->value(), ui->lSlider->value());
+}
+
+
+void MainWindow::on_sSlider_actionTriggered(int s)
+{
+    hslCollors(originalImage, processImage, ui->hSlider->value(), s, ui->lSlider->value());
+}
+
+
+void MainWindow::on_lSlider_actionTriggered(int l)
+{
+    hslCollors(originalImage, processImage, ui->hSlider->value(), ui->sSlider->value(), l);
 }
 
