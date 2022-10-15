@@ -31,9 +31,9 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata1[10];
     char stringdata2[1];
     char stringdata3[24];
-    char stringdata4[36];
-    char stringdata5[7];
-    char stringdata6[38];
+    char stringdata4[33];
+    char stringdata5[6];
+    char stringdata6[35];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
@@ -43,17 +43,17 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(11, 9),  // "openImage"
         QT_MOC_LITERAL(21, 0),  // ""
         QT_MOC_LITERAL(22, 23),  // "on_actionOpen_triggered"
-        QT_MOC_LITERAL(46, 35),  // "on_horizontalSlider_actionTri..."
-        QT_MOC_LITERAL(82, 6),  // "action"
-        QT_MOC_LITERAL(89, 37)   // "on_horizontalSlider_2_actionT..."
+        QT_MOC_LITERAL(46, 32),  // "on_horizontalSlider_valueChanged"
+        QT_MOC_LITERAL(79, 5),  // "value"
+        QT_MOC_LITERAL(85, 34)   // "on_horizontalSlider_2_valueCh..."
     },
     "MainWindow",
     "openImage",
     "",
     "on_actionOpen_triggered",
-    "on_horizontalSlider_actionTriggered",
-    "action",
-    "on_horizontalSlider_2_actionTriggered"
+    "on_horizontalSlider_valueChanged",
+    "value",
+    "on_horizontalSlider_2_valueChanged"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -99,10 +99,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_actionOpen_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_horizontalSlider_actionTriggered'
+        // method 'on_horizontalSlider_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_horizontalSlider_2_actionTriggered'
+        // method 'on_horizontalSlider_2_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
@@ -117,8 +117,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->openImage(); break;
         case 1: _t->on_actionOpen_triggered(); break;
-        case 2: _t->on_horizontalSlider_actionTriggered((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 3: _t->on_horizontalSlider_2_actionTriggered((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 2: _t->on_horizontalSlider_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 3: _t->on_horizontalSlider_2_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }

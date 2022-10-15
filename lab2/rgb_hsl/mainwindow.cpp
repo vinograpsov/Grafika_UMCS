@@ -17,17 +17,17 @@ float tC(float x){
 
 unsigned char tCChar(float x, float p, float q){
     if (x < 0.16666666f){
-        return (p + (q - p) * 6 * x) * 255;
+        return (p + (q - p) * 6 * x) * 255.0f;
     }
     else if(x >= 0.16666666f && x < 0.5f){
-        return q * 255;
+        return q * 255.0f;
     }
 
     else if(x >= 0.5f && x < 0.6666666666f){
-        return (p + (q - p) * 6 * (0.6666666666f - x)) * 255;
+        return (p + (q - p) * 6 * (0.6666666666f - x)) * 255.0f;
     }
     else{
-        return p * 255;
+        return p * 255.0f;
     }
 }
 
@@ -45,7 +45,7 @@ void rgbToHsl(unsigned char r, unsigned char g, unsigned char b, float *h, float
     if(MIN == MAX || l == 0){
         *s = 0;
     }
-    else if(*l > 0 && *l < 0.5f){
+    else if(*l > 0 && *l <= 0.5f){
         *s = dM/(*l * 2);
     }
     else if(*l > 0.5f){
@@ -75,6 +75,7 @@ void rgbToHsl(unsigned char r, unsigned char g, unsigned char b, float *h, float
 }
 
 void hslToRgb(float h, float s, float l,unsigned char *r, unsigned char *g, unsigned char *b){
+
     if (s == 0){
        *r = l;
        *g = l;
@@ -109,7 +110,16 @@ void hslToRgb(float h, float s, float l,unsigned char *r, unsigned char *g, unsi
 
 
 void hslCollors(const QImage &src, QImage &dst, float h, float s, float l){
+
+    s /= 100.0f;
+    l /= 100.0f;
+
+
+    std::cout << h << " " << s  << " "  << l << std::endl;
+
     for(int y = 0; y < src.height(); y++){
+
+
         QRgb *pixel_src = (QRgb*)src.scanLine(y);
         QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
@@ -118,17 +128,17 @@ void hslCollors(const QImage &src, QImage &dst, float h, float s, float l){
             unsigned char g = qGreen(pixel_src[x]);
             unsigned char b = qBlue(pixel_src[x]);
 
-            float fh;
-            float fs;
-            float fl;
+            float fh = 180;
+            float fs = 0.5f;
+            float fl = 0.5f;
 
             rgbToHsl(r,g,b,&fh,&fs,&fl);
 
-            h += fh;
-            s += fs;
-            l += fl;
+            float hh = clamp<float>(h + fh, 0, 360);
+            float hs = clamp<float>(s + fs, 0, 1);
+            float hl = clamp<float>(l + fl, 0, 1);
 
-            hslToRgb(h,s,l,&r,&g,&b);
+            hslToRgb(hh,hs,hl,&r,&g,&b);
 
             pixel_dst[x] = qRgb(r,g,b);
         }
@@ -144,18 +154,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    float h = 0.5;
-    float s = 0.64;
-    float l = 0.43;
-    unsigned char r = 223;
-    unsigned char g = 121;
-    unsigned char b = 132;
+    float h = 12;
+    float s = 0.65;
+    float l = 0.65;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    hslToRgb(h,s,l,&r,&g,&b);
+    std::cout << +r << " " << +g  << " "  << +b << std::endl;
     rgbToHsl(r,g,b,&h,&s,&l);
     std::cout << h << " " << s  << " "  << l << std::endl;
     hslToRgb(h,s,l,&r,&g,&b);
     std::cout << +r << " " << +g  << " "  << +b << std::endl;
-
+    rgbToHsl(r,g,b,&h,&s,&l);
+    std::cout << h << " " << s  << " "  << l << std::endl;
 }
+
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -178,20 +194,23 @@ void MainWindow::on_actionOpen_triggered()
 }
 
 
-void MainWindow::on_hSlider_actionTriggered(int h)
+void MainWindow::on_hSlider_valueChanged(int h)
 {
     hslCollors(originalImage, processImage, h, ui->sSlider->value(), ui->lSlider->value());
+    ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 
 
-void MainWindow::on_sSlider_actionTriggered(int s)
+void MainWindow::on_sSlider_valueChanged(int s)
 {
     hslCollors(originalImage, processImage, ui->hSlider->value(), s, ui->lSlider->value());
+    ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 
 
-void MainWindow::on_lSlider_actionTriggered(int l)
+void MainWindow::on_lSlider_valueChanged(int l)
 {
     hslCollors(originalImage, processImage, ui->hSlider->value(), ui->sSlider->value(), l);
+    ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 

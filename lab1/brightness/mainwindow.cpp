@@ -77,14 +77,14 @@ void MainWindow::on_actionOpen_triggered()
 }
 
 
-void MainWindow::on_horizontalSlider_actionTriggered(int v)
+void MainWindow::on_horizontalSlider_valueChanged(int v)
 {
     brightness(originalImage, processImage, v);
     ui->label->setPixmap(QPixmap::fromImage(processImage));
 }
 
 
-void MainWindow::on_horizontalSlider_2_actionTriggered(int v)
+void MainWindow::on_horizontalSlider_2_valueChanged(int v)
 {
     float gamma = 0.0f;
 

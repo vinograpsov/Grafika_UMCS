@@ -7,6 +7,12 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+template<class T>
+T clamp(T v, T minv, T maxv) {
+    if (v >= maxv) return maxv;
+    if (v <= minv) return minv;
+    return v;
+}
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -24,11 +30,11 @@ public slots:
 private slots:
     void on_actionOpen_triggered();
 
-    void on_hSlider_actionTriggered(int action);
+    void on_hSlider_valueChanged(int value);
 
-    void on_lSlider_actionTriggered(int action);
+    void on_lSlider_valueChanged(int value);
 
-    void on_sSlider_actionTriggered(int action);
+    void on_sSlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
