@@ -4,7 +4,15 @@
 #include<iostream>
 
 
-
+int getMaxNumPix(int *x, int size){
+    int maximum = 0;
+    for(int i = 0; i < size; i++){
+        if (maximum < x[i]){
+            maximum = x[i];
+        }
+    }
+    return maximum;
+}
 
 void setWhite(QImage &I){
     for (int y = 0; y < I.height(); y++) {
@@ -31,26 +39,14 @@ void drawLine(QImage &I, unsigned char value, int height){
     }
 }
 
-float getHeightOfHist(unsigned char *x, int size, unsigned char value){
-    float out = 0.0f;
-    for (int i = 0; i < size; i++){
-        if(x[i] == value){
-            out += 1;
-        }
-    }
-
+int normalizeValue(int *x, int size, unsigned char value){
+    float out = (float)x[value];
     out = (out / size) * 255;
-    std::cout << out << std::endl;
-    return out;
+    return (int)out;
 }
 
 
-void getRGBarrays(const QImage &src,unsigned char *red,unsigned char *green,unsigned char *blue){
-    int pixel_count = src.height() * src.width();
-
-    red = new unsigned char[pixel_count];
-    green = new unsigned char[pixel_count];
-    blue = new unsigned char[pixel_count];
+void getRGBarrays(const QImage &src,int *red,int *green,int *blue){
 
     for (int y = 0; y < src.height(); y++) {
         QRgb *pixel_src = (QRgb*)src.scanLine(y);
@@ -61,9 +57,9 @@ void getRGBarrays(const QImage &src,unsigned char *red,unsigned char *green,unsi
             unsigned char b = qBlue(pixel_src[x]);
 
 
-            red[y * src.width() + x] = r;
-            green[y * src.width() + x] = g;
-            blue[y * src.width() + x] = b;
+            red[r] += 1;
+            green[g] += 1;
+            blue[b] += 1;
         }
     }
 
@@ -90,10 +86,10 @@ void MainWindow::openImage() {
         ui->image->setPixmap(QPixmap::fromImage(originalImage));
     }
 
-    unsigned char *red;
-    unsigned char *green;
-    unsigned char *blue;
-    int imgSize = originalImage.height() * originalImage.width();
+    int *red = new int[256];
+    int *green = new int[256];
+    int *blue = new int[256];
+
 
     getRGBarrays(originalImage,red,green,blue);
 
@@ -108,15 +104,15 @@ void MainWindow::openImage() {
 
     for (unsigned char i = 0; i < 255; i++){
 
-        float heightR = getHeightOfHist(red, imgSize, i);
-        float heightG = getHeightOfHist(green, imgSize, i);
-//        float heightB = getHeightOfHist(blue, imgSize, i);
+        float heightR = normalizeValue(red, getMaxNumPix(red,255), i);
+        float heightG = normalizeValue(green, getMaxNumPix(green,255), i);
+        float heightB = normalizeValue(blue, getMaxNumPix(green,255), i);
 
         std::cout << heightR << " " << heightG << " " << std::endl;
 
-        drawLine(histRed, i, (int)heightR);
-        drawLine(histGreen, i,(int)heightG);
-//        drawLine(histBlue, i, heightB);
+        drawLine(histRed, i, heightR);
+        drawLine(histGreen, i,heightG);
+        drawLine(histBlue, i,heightB);
 
     }
 
