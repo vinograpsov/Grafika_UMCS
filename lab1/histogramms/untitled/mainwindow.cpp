@@ -19,31 +19,29 @@ void setWhite(QImage &I){
 
 
 void drawLine(QImage &I, unsigned char value, int height){
-    for (int y = 0; y < I.height(); y++) {
+    for (unsigned char y = 0; y < I.height(); y++) {
         QRgb *pixel_src = (QRgb*)I.scanLine(y);
 
-        for (int x = 0; x < I.width(); x++) {
+        for (unsigned char x = 0; x < I.width(); x++) {
             if(x == value && y > I.height() - height){
+
                 pixel_src[x] = qRgb(1, 1, 1);
             }
         }
     }
 }
 
-int getHeightOfHist(unsigned char *x, int size, unsigned char value){
-    int out = 0;
+float getHeightOfHist(unsigned char *x, int size, unsigned char value){
+    float out = 0.0f;
     for (int i = 0; i < size; i++){
         if(x[i] == value){
-            out++;
+            out += 1;
         }
     }
 
-    out = (int)((float)(out / size) * 255);
+    out = (out / size) * 255;
     std::cout << out << std::endl;
     return out;
-
-
-
 }
 
 
@@ -99,22 +97,25 @@ void MainWindow::openImage() {
 
     getRGBarrays(originalImage,red,green,blue);
 
-    QImage histRed = QImage (256, 256, QImage::Format_RGB32);
-    QImage histGreen = QImage (256, 256, QImage::Format_RGB32);
-    QImage histBlue = QImage (256, 256, QImage::Format_RGB32);
+
+    QImage histRed = QImage (255, 255, QImage::Format_RGB32);
+    QImage histGreen = QImage (255, 255, QImage::Format_RGB32);
+    QImage histBlue = QImage (255, 255, QImage::Format_RGB32);
 
     setWhite(histRed);
     setWhite(histGreen);
     setWhite(histBlue);
 
-    for (unsigned char i = 0; i < 30; i++){
+    for (unsigned char i = 0; i < 255; i++){
 
-        int heightR = getHeightOfHist(red, imgSize, i);
-        int heightG = getHeightOfHist(green, imgSize, i);
-//        int heightB = getHeightOfHist(blue, imgSize, i);
+        float heightR = getHeightOfHist(red, imgSize, i);
+        float heightG = getHeightOfHist(green, imgSize, i);
+//        float heightB = getHeightOfHist(blue, imgSize, i);
 
-        drawLine(histRed, i, heightR);
-        drawLine(histGreen, i,heightG);
+        std::cout << heightR << " " << heightG << " " << std::endl;
+
+        drawLine(histRed, i, (int)heightR);
+        drawLine(histGreen, i,(int)heightG);
 //        drawLine(histBlue, i, heightB);
 
     }
