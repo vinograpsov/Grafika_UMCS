@@ -134,7 +134,8 @@ void hslCollors(const QImage &src, QImage &dst, float h, float s, float l){
 
             rgbToHsl(r,g,b,&fh,&fs,&fl);
 
-            float hh = clamp<float>(h + fh, 0, 360);
+//            float hh = clamp<float>(h + fh, 0, 360);
+            float hh = (int)(h + fh) % 360;
             float hs = clamp<float>(s + fs, 0, 1);
             float hl = clamp<float>(l + fl, 0, 1);
 

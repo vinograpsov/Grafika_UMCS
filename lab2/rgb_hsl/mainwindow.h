@@ -13,6 +13,7 @@ T clamp(T v, T minv, T maxv) {
     if (v <= minv) return minv;
     return v;
 }
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
