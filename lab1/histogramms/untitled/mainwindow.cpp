@@ -32,12 +32,12 @@ void drawLine(QImage &I, unsigned char value, int height){
 
         for (unsigned char x = 0; x < I.width(); x++) {
             if(x == value && y > I.height() - height){
-
                 pixel_src[x] = qRgb(1, 1, 1);
             }
         }
     }
 }
+
 
 int normalizeValue(int *x, int size, unsigned char value){
     float out = (float)x[value];
@@ -86,9 +86,9 @@ void MainWindow::openImage() {
         ui->image->setPixmap(QPixmap::fromImage(originalImage));
     }
 
-    int *red = new int[256];
-    int *green = new int[256];
-    int *blue = new int[256];
+    int *red = new int[256]{0};
+    int *green = new int[256]{0};
+    int *blue = new int[256]{0};
 
 
     getRGBarrays(originalImage,red,green,blue);
@@ -106,7 +106,7 @@ void MainWindow::openImage() {
 
         float heightR = normalizeValue(red, getMaxNumPix(red,255), i);
         float heightG = normalizeValue(green, getMaxNumPix(green,255), i);
-        float heightB = normalizeValue(blue, getMaxNumPix(green,255), i);
+        float heightB = normalizeValue(blue, getMaxNumPix(blue,255), i);
 
         std::cout << heightR << " " << heightG << " " << std::endl;
 
