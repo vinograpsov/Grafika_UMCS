@@ -65,6 +65,45 @@ QImage line_borders_img(const QImage& src, int r){
 }
 
 
+std::vector<int> getVector(int r){
+    std::vector<int> out = new std::vector<int>();
+    int d = 2 * r + 1;
+    for(int i = 0; i < d * d; i++){
+        if(i != d * (d / 2) + r + 1){
+            out.push_back(d*d);
+        }
+        else{
+            out.push_back(-1);
+        }
+    }
+    return out;
+}
+
+void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
+
+    QImage tempImage = line_borders_img(src,r);
+
+
+    for(int y = 0; y<src.height();y++){
+
+        QRgb *pixel_src = (QRgb*)src.scanLine(y);
+        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+
+        for(int x = 0; dst.width(); x++){
+
+            unsigned char r = qRed(pixel_src[x]);
+            unsigned char g = qGreen(pixel_src[x]);
+            unsigned char b = qBlue(pixel_src[x]);
+
+        }
+
+
+    }
+}
+
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -84,6 +123,7 @@ void MainWindow::openImage(){
 
     if (!fileName.isNull()) {
         originalImage.load(fileName);
+        processImage = originalImage;
         ui->image->setPixmap(QPixmap::fromImage(originalImage));
     }
 
