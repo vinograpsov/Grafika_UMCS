@@ -4,3 +4,4 @@
     - ~~histogramm~~
 2. - ~~hsl to rgb / rgb to hsl~~
     - ~~hsl to lab~~
+3. - splot
