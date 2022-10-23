@@ -16,6 +16,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -29,10 +30,8 @@ public:
     QWidget *centralwidget;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
+    QSlider *horizontalSlider;
     QLabel *image;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *verticalLayout_2;
-    QLabel *border_image;
     QMenuBar *menubar;
     QMenu *menuopen;
     QStatusBar *statusbar;
@@ -41,37 +40,32 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1330, 669);
+        MainWindow->resize(1034, 678);
         Open = new QAction(MainWindow);
         Open->setObjectName("Open");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 591, 611));
+        verticalLayoutWidget->setGeometry(QRect(10, 10, 1011, 621));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalSlider = new QSlider(verticalLayoutWidget);
+        horizontalSlider->setObjectName("horizontalSlider");
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        verticalLayout->addWidget(horizontalSlider);
+
         image = new QLabel(verticalLayoutWidget);
         image->setObjectName("image");
 
         verticalLayout->addWidget(image);
 
-        verticalLayoutWidget_2 = new QWidget(centralwidget);
-        verticalLayoutWidget_2->setObjectName("verticalLayoutWidget_2");
-        verticalLayoutWidget_2->setGeometry(QRect(619, 9, 701, 611));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
-        verticalLayout_2->setObjectName("verticalLayout_2");
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        border_image = new QLabel(verticalLayoutWidget_2);
-        border_image->setObjectName("border_image");
-
-        verticalLayout_2->addWidget(border_image);
-
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1330, 21));
+        menubar->setGeometry(QRect(0, 0, 1034, 22));
         menuopen = new QMenu(menubar);
         menuopen->setObjectName("menuopen");
         MainWindow->setMenuBar(menubar);
@@ -92,7 +86,6 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         Open->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
         image->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        border_image->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         menuopen->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 

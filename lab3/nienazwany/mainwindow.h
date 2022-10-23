@@ -26,6 +26,8 @@ public slots:
 private slots:
     void on_Open_triggered();
 
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 };
