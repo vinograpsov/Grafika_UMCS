@@ -12,9 +12,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     QImage originalImage;
     QImage processImage;
-    QImage tempImage;
-
-
 
 public:
     MainWindow(QWidget *parent = nullptr);
