@@ -122,38 +122,45 @@ std::vector<int> getMaskBlur(int r){
 
 
 float get_super_hard_exp(int x, int y, int sigma){
-    float power_of_exp = ((float)-(pow(x,2) + pow(y,2)) / 2 * (float)pow(sigma,2));
-    return exp(power_of_exp);
+    float power_of_exp = ((float)(pow(x,2) + pow(y,2)) / (float)(2 * pow(sigma,2)));
+    return exp(-power_of_exp);
 }
 
-int return_point_gauss(int x, int y, int sigma){
-    return (1 / (2 * M_PI * pow(sigma,2))) * get_super_hard_exp(x,y,sigma);
+float return_point_gauss(int x, int y, int sigma){
+    return (1 / (float)(2 * M_PI * pow(sigma,2))) * get_super_hard_exp(x,y,sigma);
 }
 
 
 std::vector<int> getMaskBlurGaus(int r){
-    std::vector<int> out;
+    std::vector<float> out;
+    std::vector<int> super_out;
     int sigma = 1;
 
     if (r == 0){
-        out.push_back(1);
-        return out;
+        super_out.push_back(1);
+        return super_out;
     }
 
 
-    for(int y = 0; y < r * 2 + 1; y++){
-        for(int x = 0; x < r * 2 + 1; x++){
+    for(int y = -r; y <= r; y++){
+        for(int x = -r; x <= r; x++){
             out.push_back(return_point_gauss(x,y,sigma));
         }
     }
 
-    for(int y = 0; y < r * 2 + 1; y++){
-        for(int x = 0; x < r * 2 + 1; x++){
-            std::cout << out[y * r + x] << " ";
-        }
-        std::cout << std::endl;
-    }
-    return out;
+    float value_to_multiply = 1.1f / out[0];
+    for(int j = 0; j < out.size();j++) out[j] = out[j] * value_to_multiply;
+
+    for(int y = 0; y < out.size();y++) super_out.push_back((int)out[y]);
+//    for(int y = 0; y < r * 2 + 1; y++){
+//        for(int x = 0; x < r * 2 + 1; x++){
+//            std::cout << out[y * r + x] << " ";
+//        }
+//        std::cout << std::endl;
+//    }
+    for(int y = 0; y < out.size();y++) std::cout << super_out[y] << " ";
+    std::cout << std::endl << out.size() << std::endl;
+    return super_out;
 }
 
 
@@ -302,8 +309,8 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv2d(originalImage,processImage,getMaskSharp(value),value);
-        getMaskBlurGaus(value);
+        conv2d(originalImage,processImage,getMaskBlurGaus(value),value);
+//        getMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 
