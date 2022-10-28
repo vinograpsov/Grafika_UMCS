@@ -64,9 +64,13 @@ QImage line_borders_img(const QImage& src, int r){
 }
 
 
-std::vector<int> getVector(int r){
+std::vector<int> getMaskSharp(int r){
     std::vector<int> out;
     int d = 2 * r + 1;
+    if (r == 0){
+        out.push_back(1);
+        return out;
+    }
     for(int i = 0; i < d * d; i++){
         if(i == d * (d / 2) + r){
             out.push_back(d*d);
@@ -78,18 +82,39 @@ std::vector<int> getVector(int r){
     return out;
 }
 
+std::vector<int> getMaskBorders(int r){
+    std::vector<int> out;
+    if (r == 0){
+        out.push_back(1);
+        return out;
+    }
+    int d = 2 * r + 1;
+    for(int i = 0; i < d * d; i++){
+        if(i == d * (d / 2) + r){
+            out.push_back(d*d - 1);
+        }
+        else{
+            out.push_back(-1);
+        }
+    }
+    return out;
+}
 
-//int get_vector_pos(int i, int r){
-//    if(i <= 0){
-//        return r - i;
-//    }
-//    else if(i == 0){
-//        return r;
-//    }
-//    else{
-//        return r + i;
-//    }
-//}
+std::vector<int> getMaskBlur(int r){
+    std::vector<int> out;
+
+    if (r == 0){
+        out.push_back(1);
+        return out;
+    }
+    int d = 2 * r + 1;
+    for(int i = 0; i < d * d; i++){
+        out.push_back(1);
+    }
+    return out;
+}
+
+
 
 int get_vector_pos(int i, int r){
     return r + i;
@@ -105,19 +130,18 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
     for(int y = 0; y < src.height(); y++){
 
-        QRgb *pixel_src = (QRgb*)src.scanLine(y);
         QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
 
         for(int x = 0; x < src.width(); x++){
 
-            unsigned char rr = qRed(pixel_src[x]);
-            unsigned char gg = qGreen(pixel_src[x]);
-            unsigned char bb = qBlue(pixel_src[x]);
+            int rr = 0;
+            int gg = 0;
+            int bb = 0;
 
             for(int iy = -r; iy <=r;iy++){
 
-                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy);
+                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy +r );
 
                 for(int ix = -r; ix <=r;ix++){
 
@@ -126,16 +150,29 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
                     tmp_x = get_vector_pos(ix,r);
                     tmp_y = get_vector_pos(iy,r);
 
-                    rr += qRed(pixel_border[x+ix]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
-                    gg += qGreen(pixel_border[x+ix]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
-                    bb += qBlue(pixel_border[x+ix]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
+
+                    rr += qRed(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
+                    gg += qGreen(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
+                    bb += qBlue(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
                 }
-                // problema s ix potomuczto mensze 0
+
             }
+
+            int mask_sum = 0;
+            mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
+
+
+            if (mask_sum == 0) mask_sum = 1;
+
+            rr = clamp<int>((float)rr / (float)mask_sum,0,255);
+            gg = clamp<int>((float)gg / (float)mask_sum,0,255);
+            bb = clamp<int>((float)bb / (float)mask_sum,0,255);
+
             pixel_dst[x] = qRgb(rr,gg,bb);
         }
     }
 }
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -174,7 +211,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    conv2d(originalImage,processImage,getVector(1),1);
-    ui->image->setPixmap(QPixmap::fromImage(processImage));
+        conv2d(originalImage,processImage,getMaskBlur(value),value);
+        ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 

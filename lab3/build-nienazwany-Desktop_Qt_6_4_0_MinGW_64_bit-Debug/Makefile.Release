@@ -575,6 +575,51 @@ release/mainwindow.o: ../nienazwany/mainwindow.cpp ../nienazwany/mainwindow.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnativeinterface.h \
 		F:/qt/6.4.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		ui_mainwindow.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QVariant \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QAction \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QApplication \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qapplication.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qcoreapplication.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qeventloop.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qjnitypes.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qfuture.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qfutureinterface.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qmutex.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qtsan_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qresultstore.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qfuture_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qthreadpool.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qthread.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qdeadlinetimer.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qelapsedtimer.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qrunnable.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qexception.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qpromise.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qguiapplication.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qinputmethod.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qlocale.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qguiapplication_platform.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QLabel \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qlabel.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qframe.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qpicture.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qtextdocument.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QMenu \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qmenu.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QMenuBar \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qmenubar.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QSlider \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qslider.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qabstractslider.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QStatusBar \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qstatusbar.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qlayout.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		F:/qt/6.4.0/mingw_64/include/QtWidgets/QWidget \
 		F:/qt/6.4.0/mingw_64/include/QtWidgets/QFileDialog \
 		F:/qt/6.4.0/mingw_64/include/QtWidgets/qfiledialog.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdir.h \
@@ -583,7 +628,6 @@ release/mainwindow.o: ../nienazwany/mainwindow.cpp ../nienazwany/mainwindow.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qfileinfo.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdatetime.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qcalendar.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qlocale.h \
 		F:/qt/6.4.0/mingw_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\nienazwany\mainwindow.cpp
 

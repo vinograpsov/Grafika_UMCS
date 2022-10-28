@@ -26,6 +26,9 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QSlider" name="horizontalSlider">
+       <property name="maximum">
+        <number>7</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
