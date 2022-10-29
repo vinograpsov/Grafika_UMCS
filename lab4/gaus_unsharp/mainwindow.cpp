@@ -147,8 +147,12 @@ std::vector<int> getMaskBlurGaus(int r){
         }
     }
 
-    float value_to_multiply = 1.1f / out[0];
-    for(int j = 0; j < out.size();j++) out[j] = out[j] * value_to_multiply;
+    float value_to_multiply = 0.0f;
+    for (int j = 0; j < out.size(); j++){
+        value_to_multiply += out[j];
+    }
+    value_to_multiply *= out.size();
+    for(int j = 0; j < out.size();j++) out[j] = out[j] / value_to_multiply;
 
     for(int y = 0; y < out.size();y++) super_out.push_back((int)out[y]);
     for(int j = 0; j < super_out.size(); j++){
@@ -168,7 +172,7 @@ std::vector<int> getMaskBlurGaus(int r){
 
 
 
-void conv2d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r){
+void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
     QImage tempImage = line_borders_img(src,r);
 //    QImage tempImage = black_borders_img(src,r);
