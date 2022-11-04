@@ -70,67 +70,16 @@ QImage line_borders_img(const QImage& src, int r){
 }
 
 
-std::vector<int> getMaskSharp(int r){
-    std::vector<int> out;
-    int d = 2 * r + 1;
-    if (r == 0){
-        out.push_back(1);
-        return out;
-    }
-    for(int i = 0; i < d * d; i++){
-        if(i == d * (d / 2) + r){
-            out.push_back(d*d);
-        }
-        else{
-            out.push_back(-1);
-        }
-    }
-    return out;
-}
-
-std::vector<int> getMaskBorders(int r){
-    std::vector<int> out;
-    if (r == 0){
-        out.push_back(1);
-        return out;
-    }
-    int d = 2 * r + 1;
-    for(int i = 0; i < d * d; i++){
-        if(i == d * (d / 2) + r){
-            out.push_back(d*d - 1);
-        }
-        else{
-            out.push_back(-1);
-        }
-    }
-    return out;
-}
-
-std::vector<int> getMaskBlur(int r){
-    std::vector<int> out;
-
-    if (r == 0){
-        out.push_back(1);
-        return out;
-    }
-    int d = 2 * r + 1;
-    for(int i = 0; i < d * d; i++){
-        out.push_back(1);
-    }
-    return out;
-}
-
-
-float get_super_hard_exp(int x, int y, int sigma){
+float get_super_hard_exp_2d(int x, int y, int sigma){
     float power_of_exp = ((float)(pow(x,2) + pow(y,2)) / (float)(2 * pow(sigma,2)));
     return exp(-power_of_exp);
 }
 
-float return_point_gauss(int x, int y, int sigma){
-    return (1 / (float)(2 * M_PI * pow(sigma,2))) * get_super_hard_exp(x,y,sigma);
+float return_point_gauss_2d(int x, int y, int sigma){
+    return (1 / (float)(2 * M_PI * pow(sigma,2))) * get_super_hard_exp_2d(x,y,sigma);
 }
 
-std::vector<int> getMaskBlurGaus(int r){
+std::vector<int> get2DMaskBlurGaus(int r){
     std::vector<float> out;
     std::vector<int> super_out;
     int sigma = 1;
@@ -143,7 +92,7 @@ std::vector<int> getMaskBlurGaus(int r){
 
     for(int y = -r; y <= r; y++){
         for(int x = -r; x <= r; x++){
-            out.push_back(return_point_gauss(x,y,sigma));
+            out.push_back(return_point_gauss_2d(x,y,sigma));
         }
     }
 
@@ -165,12 +114,30 @@ std::vector<int> getMaskBlurGaus(int r){
     return super_out;
 }
 
+float get_super_hard_exp_1d(int x,int sigma){
+    float power_of_exp = (float)std::pow(x,2) / (float)(2 * std::pow(sigma,2));
+    return exp(-power_of_exp);
+}
 
+float return_point_gauss_1d(int x, int sigma){
+    return (1.0f / (std::pow((2.0f * M_PI + sigma),0.5f))) * get_super_hard_exp_1d(x,sigma);
+}
 
+std::vector<float> get1DMaskBlurGaus(int r){
+    std::vector<float> out;
 
+    int sigma = 1;
 
+    for(int x = -r; x <= r; x++){
+        out.push_back(return_point_gauss_1d(x,sigma));
+    }
 
-
+    for(int j = 0; j < out.size(); j++){
+        std::cout << out[j] << " ";
+    }
+    std::cout << std::endl << out.size() << std::endl;
+    return out;
+}
 
 void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
@@ -223,54 +190,55 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 }
 
 
-void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
+//void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
-    QImage tempImage = line_borders_img(src,r);
+//    QImage tempImage = line_borders_img(src,r);
 
-    for(int y = 0; y < src.height(); y++){
+//    if(r > 0){
 
-        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+//        for(int y = 0; y < src.height(); y++){
 
-
-        for(int x = 0; x < src.width(); x++){
-
-            int rr = 0;
-            int gg = 0;
-            int bb = 0;
-
-            for(int iy = -r; iy <=r;iy++){
-
-                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy +r );
-
-                for(int ix = -r; ix <=r;ix++){
-
-                    int tmp_x, tmp_y;
-
-                    tmp_x = get_vector_pos(ix,r);
-                    tmp_y = get_vector_pos(iy,r);
+//            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
 
-                    rr += qRed(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
-                    gg += qGreen(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
-                    bb += qBlue(pixel_border[x+ix + r]) * mask[tmp_x + (r * 2 + 1) * tmp_y];
-                }
+//            for(int x = 0; x < src.width(); x++){
 
-            }
+//                std::vector<uchar> redVec;
+//                std::vector<uchar> greenVec;
+//                std::vector<uchar> blueVec;
 
-            int mask_sum = 0;
-            mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
+//                for(int iy = -r; iy <=r;iy++){
 
+//                    QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy +r );
 
-            if (mask_sum == 0) mask_sum = 1;
+//                    for(int ix = -r; ix <=r;ix++){
 
-            rr = clamp<int>((float)rr / (float)mask_sum,0,255);
-            gg = clamp<int>((float)gg / (float)mask_sum,0,255);
-            bb = clamp<int>((float)bb / (float)mask_sum,0,255);
+//                        redVec.push_back(qRed(pixel_border[x+ix + r]));
+//                        greenVec.push_back(qGreen(pixel_border[x+ix + r]));
+//                        blueVec.push_back(qBlue(pixel_border[x+ix + r]));
 
-            pixel_dst[x] = qRgb(rr,gg,bb);
-        }
-    }
-}
+//                    }
+
+//                }
+//                pixel_dst[x] = qRgb(returnMedInVector(redVec),returnMedInVector(greenVec),returnMedInVector(blueVec));
+//            }
+//        }
+//    }
+
+//    else{
+//        for(int y = 0; y < src.height(); y++){
+//            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+//            QRgb *pixel_src = (QRgb*)src.scanLine(y);
+//            for(int x = 0; x < src.width(); x++){
+
+//                unsigned char r = qRed(pixel_src[x]);
+//                unsigned char g = qGreen(pixel_src[x]);
+//                unsigned char b = qBlue(pixel_src[x]);
+//                pixel_dst[x] = qRgb(r,g,b);
+//            }
+//        }
+//    }
+//}
 
 
 
@@ -311,8 +279,9 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv2d(originalImage,processImage,getMaskBlurGaus(value),value);
-        getMaskBlurGaus(value);
+//        conv2d(originalImage,processImage,getMaskBlurGaus(value),value);
+//        getMaskBlurGaus(value);
+        get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 
