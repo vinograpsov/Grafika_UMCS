@@ -132,6 +132,7 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
+    float matrix[9] = {0,0,}
     rotateImage(originalImage,processImage,value / 100.0f);
     ui->image->setPixmap(QPixmap::fromImage(processImage));
 }

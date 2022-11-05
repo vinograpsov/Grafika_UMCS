@@ -2,6 +2,69 @@
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 #include <iostream>
+
+
+float returnV2(float v){
+    if (v <= 0.0031308){
+        return v * 12.92f;
+    }
+    else{
+        return std::pow(v, 1.0f / 2.4f) * 1.055f - 0.055f;
+    }
+}
+
+float returnV(float v){
+    if (v <= 0.04045){
+        return v / 12.92f;
+    }
+    else{
+        return std::pow((v + 0.055f)/1.055f, 2.4f);
+    }
+}
+
+void rgbToXyz(unsigned char r,unsigned char g,unsigned char b,float* x,float* y,float* z){
+
+    float fr = r / 255.0f;
+    float fg = g / 255.0f;
+    float fb = b / 255.0f;
+
+
+    fr = returnV(fr);
+    fg = returnV(fg);
+    fb = returnV(fb);
+
+    *x = fr * 0.41242f + fg * 0.35759f + fb * 0.18046f;
+    *y = fr * 0.21266f + fg * 0.71517f + fb * 0.07218f;
+    *z = fr * 0.01933f + fg * 0.11919f + fb * 0.95044f;
+//    *x = fr * 0.4124564f + fg * 0.3575761f + fb * 0.1804375f;
+//    *y = fr * 0.2156729f + fg * 0.7151522f + fb * 0.0721750f;
+//    *z = fr * 0.0193339f + fg * 0.1191920f + fb * 0.9503041f;
+
+}
+
+void xyzToRgb(float x, float y, float z, unsigned char* r, unsigned char* g, unsigned char* b){
+
+//    float fr = x * 3.2404542f + y * (-1.5371385f) + z * (-0.4985314f);
+//    float fg = x * (-0.9692660f) + y * (1.8760108f) + z * (0.04155560f);
+//    float fb = x * 0.0556434f + y * (-0.2040259f) + z * (1.072252f);
+
+    float fr = x * 3.24071f + y * (-1.53726f) + z * (-0.49857f);
+    float fg = x * (-0.96925f) + y * 1.87599 + z * 0.04155f;
+    float fb = x * 0.05563 + y * (-0.20399f) + z * 1.05707f;
+
+
+    fr = returnV2(fr);
+    fg = returnV2(fg);
+    fb = returnV2(fb);
+
+    *r = clamp<int>(255 * fr,0,255);
+    *g = clamp<int>(255 * fg,0,255);
+    *b = clamp<int>(255 * fb,0,255);
+
+}
+
+
+
 //void rgbToXyz(unsigned char r,unsigned char g,unsigned char b,float* x,float* y,float* z){
 
 //    float fr = r / 255.0f;
@@ -27,85 +90,34 @@
 //}
 
 
-float returnV2(float v){
-    if (v <= 0.0031308){
-        return v / 12.92f;
-    }
-    else{
-        return std::pow(v,(1.0f/2.4f)) * 1.055f - 0.055f;
-    }
-}
-
-float returnV(float v){
-    if (v <= 0.04045){
-        return v / 12.92f;
-    }
-    else{
-        return std::pow((v + 0.055f)/1.055f, 2.4f);
-    }
-}
-
-void rgbToXyz(unsigned char r,unsigned char g,unsigned char b,float* x,float* y,float* z){
-
-    float fr = r / 255.0f;
-    float fg = g / 255.0f;
-    float fb = b / 255.0f;
-
-
-    fr = returnV(fr);
-    fg = returnV(fg);
-    fb = returnV(fb);
-
-    *x = fr * 0.4124564f + fg * 0.3575761f + fb * 0.1804375f;
-    *y = fr * 0.2156729f + fg * 0.7151522f + fb * 0.0721750f;
-    *z = fr * 0.0193339f + fg * 0.1191920f + fb * 0.9503041f;
-
-}
-
-void xyzToRgb(float x, float y, float z, unsigned char* r, unsigned char* g, unsigned char* b){
-
-    float fr = x * 3.2404542f + y * (-1.5371385f) + z * (-0.4985314f);
-    float fg = x * (-0.9692660f) + y * (1.8760108f) + z * (0.04155560f);
-    float fb = x * 0.0556434f + y * (-0.2040259f) + z * (1.072252f);
-
-    fr = returnV2(fr);
-    fg = returnV2(fg);
-    fb = returnV2(fb);
-
-    *r = uchar(255 * fr);
-    *g = uchar(255 * fg);
-    *b = uchar(255 * fb);
-
-}
-
 void xyzToLab(float x,float y,float z,float* l,float* a,float* b){
-    float xr = x / 0.9505f;
-    float yr = y / 1.0f;
-    float zr = z / 1.0891f;
+    x /= 0.9505f;
+    y /= 1.0f;
+    z /= 1.0891f;
 
     float fx,fy,fz;
     float k = 903.3f;
     float e = 0.008856f;
 
-    if(xr > e){
-        fx = std::pow(xr,(1.0f / 3.0f));
+    if(x > e){
+        fx = std::pow(x,(1.0f / 3.0f));
     }
     else{
-        fx = (k*xr + 16) / 116.0f;
+        fx = (k*x + 16) / 116.0f;
     }
 
-    if(yr > e){
-        fy = std::pow(yr,(1.0f / 3.0f));
+    if(y > e){
+        fy = std::pow(y,(1.0f / 3.0f));
     }
     else{
-        fz = (k*yr + 16) / 116.0f;
+        fz = (k*y + 16) / 116.0f;
     }
 
-    if(zr > e){
-        fz = std::pow(xr,(1.0f / 3.0f));
+    if(z > e){
+        fz = std::pow(z,(1.0f / 3.0f));
     }
     else{
-        fz = (k*zr + 16) / 116.0f;
+        fz = (k*z + 16) / 116.0f;
     }
 
     *l = 116 * fy - 16;
@@ -172,17 +184,17 @@ void lab_modify(const QImage &src, QImage &dst, float ll, float aa, float bb){
             unsigned char b = qBlue(pixel_src[x]);
 
 
-            float xx= 0.0f,yy= 0.0f,zz= 0.0f;
-            float fl= 0.0f,fa= 0.0f,fb= 0.0f;
+            float xx,yy,zz;
+            float fl,fa,fb;
 
             rgbToXyz(r,g,b,&xx,&yy,&zz);
             xyzToLab(xx,yy,zz,&fl,&fa,&fb);
 
-            float tl = clamp<float>(ll + fl, 0, 100);
-            float ta = clamp<float>(aa + fa, -128, 127);
-            float tb = clamp<float>(bb + fb, -128, 127);
+            fl = clamp<float>(ll + fl, 0.0f, 100.0f);
+            fa = clamp<float>(aa + fa, -128.0f, 127.0f);
+            fb = clamp<float>(bb + fb, -128.0f, 127.0f);
 
-            labToXyz(tl,ta,tb,&xx,&yy,&zz);
+            labToXyz(fl,fa,fb,&xx,&yy,&zz);
             xyzToRgb(xx,yy,zz,&r,&g,&b);
 
             pixel_dst[x] = qRgb(r,g,b);
@@ -217,25 +229,25 @@ void MainWindow::on_actionOpen_triggered()
 {
     openImage();
 
-    unsigned char r = 20 , g = 11 ,b = 10;
-    float l = 0.0f,a= 0.0f ,bb = 0.0f;
-    float x = 0.0f,y= 0.0f ,z = 0.0f;
+//    unsigned char r = 20 , g = 11 ,b = 10;
+//    float l = 0.0f,a= 0.0f ,bb = 0.0f;
+//    float x = 0.0f,y= 0.0f ,z = 0.0f;
 
-    rgbToXyz(r,g,b,&x,&y,&z);
-    xyzToLab(x,y,z,&l,&a,&bb);
+//    rgbToXyz(r,g,b,&x,&y,&z);
+//    xyzToLab(x,y,z,&l,&a,&bb);
 
-    std::cout << l << " " << a << " " << bb << " " << std::endl;
-    labToXyz(l,a,b,&x,&y,&z);
-    xyzToRgb(x,y,z,&r,&g,&b);
-    std::cout << +r << " " << +g << " " << +b << " " << std::endl;
+//    std::cout << l << " " << a << " " << bb << " " << std::endl;
+//    labToXyz(l,a,b,&x,&y,&z);
+//    xyzToRgb(x,y,z,&r,&g,&b);
+//    std::cout << +r << " " << +g << " " << +b << " " << std::endl;
 
-    rgbToXyz(r,g,b,&x,&y,&z);
-    xyzToLab(x,y,z,&l,&a,&bb);
+//    rgbToXyz(r,g,b,&x,&y,&z);
+//    xyzToLab(x,y,z,&l,&a,&bb);
 
-    std::cout << l << " " << a << " " << bb << " " << std::endl;
-    labToXyz(l,a,b,&x,&y,&z);
-    xyzToRgb(x,y,z,&r,&g,&b);
-    std::cout << +r << " " << +g << " " << +b << " " << std::endl;
+//    std::cout << l << " " << a << " " << bb << " " << std::endl;
+//    labToXyz(l,a,b,&x,&y,&z);
+//    xyzToRgb(x,y,z,&r,&g,&b);
+//    std::cout << +r << " " << +g << " " << +b << " " << std::endl;
 
 }
 

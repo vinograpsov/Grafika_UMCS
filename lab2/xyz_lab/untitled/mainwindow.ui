@@ -25,19 +25,6 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QSlider" name="aSlider">
-       <property name="minimum">
-        <number>-128</number>
-       </property>
-       <property name="maximum">
-        <number>128</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QSlider" name="lSlider">
        <property name="minimum">
         <number>-100</number>
@@ -51,12 +38,25 @@
       </widget>
      </item>
      <item>
-      <widget class="QSlider" name="bSlider">
+      <widget class="QSlider" name="aSlider">
        <property name="minimum">
-        <number>-127</number>
+        <number>-128</number>
        </property>
        <property name="maximum">
-        <number>127</number>
+        <number>128</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="bSlider">
+       <property name="minimum">
+        <number>-128</number>
+       </property>
+       <property name="maximum">
+        <number>128</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

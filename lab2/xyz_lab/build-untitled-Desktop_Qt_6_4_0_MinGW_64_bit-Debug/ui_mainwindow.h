@@ -30,8 +30,8 @@ public:
     QWidget *centralwidget;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QSlider *aSlider;
     QSlider *lSlider;
+    QSlider *aSlider;
     QSlider *bSlider;
     QLabel *image;
     QMenuBar *menubar;
@@ -53,14 +53,6 @@ public:
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        aSlider = new QSlider(verticalLayoutWidget);
-        aSlider->setObjectName("aSlider");
-        aSlider->setMinimum(-128);
-        aSlider->setMaximum(128);
-        aSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(aSlider);
-
         lSlider = new QSlider(verticalLayoutWidget);
         lSlider->setObjectName("lSlider");
         lSlider->setMinimum(-100);
@@ -69,10 +61,18 @@ public:
 
         verticalLayout->addWidget(lSlider);
 
+        aSlider = new QSlider(verticalLayoutWidget);
+        aSlider->setObjectName("aSlider");
+        aSlider->setMinimum(-128);
+        aSlider->setMaximum(128);
+        aSlider->setOrientation(Qt::Horizontal);
+
+        verticalLayout->addWidget(aSlider);
+
         bSlider = new QSlider(verticalLayoutWidget);
         bSlider->setObjectName("bSlider");
-        bSlider->setMinimum(-127);
-        bSlider->setMaximum(127);
+        bSlider->setMinimum(-128);
+        bSlider->setMaximum(128);
         bSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout->addWidget(bSlider);

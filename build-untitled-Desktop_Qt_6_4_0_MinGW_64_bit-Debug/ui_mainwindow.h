@@ -53,9 +53,10 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalSlider = new QSlider(verticalLayoutWidget);
         horizontalSlider->setObjectName("horizontalSlider");
-        horizontalSlider->setMinimum(10);
+        horizontalSlider->setMinimum(-100);
         horizontalSlider->setMaximum(100);
-        horizontalSlider->setSliderPosition(10);
+        horizontalSlider->setValue(0);
+        horizontalSlider->setSliderPosition(0);
         horizontalSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout->addWidget(horizontalSlider);
