@@ -104,32 +104,32 @@ void medianMasking(const QImage& src, QImage& dst, int r){
 
     if(r > 0){
 
-    for(int y = 0; y < src.height(); y++){
+        for(int y = 0; y < src.height(); y++){
 
-        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
 
-        for(int x = 0; x < src.width(); x++){
+            for(int x = 0; x < src.width(); x++){
 
-            std::vector<uchar> redVec;
-            std::vector<uchar> greenVec;
-            std::vector<uchar> blueVec;
+                std::vector<uchar> redVec;
+                std::vector<uchar> greenVec;
+                std::vector<uchar> blueVec;
 
-            for(int iy = -r; iy <=r;iy++){
+                for(int iy = -r; iy <=r;iy++){
 
-                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy +r );
+                    QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + iy +r );
 
-                for(int ix = -r; ix <=r;ix++){
+                    for(int ix = -r; ix <=r;ix++){
 
-                    redVec.push_back(qRed(pixel_border[x+ix + r]));
-                    greenVec.push_back(qGreen(pixel_border[x+ix + r]));
-                    blueVec.push_back(qBlue(pixel_border[x+ix + r]));
+                        redVec.push_back(qRed(pixel_border[x+ix + r]));
+                        greenVec.push_back(qGreen(pixel_border[x+ix + r]));
+                        blueVec.push_back(qBlue(pixel_border[x+ix + r]));
+
+                    }
 
                 }
-
+                pixel_dst[x] = qRgb(returnMedInVector(redVec),returnMedInVector(greenVec),returnMedInVector(blueVec));
             }
-            pixel_dst[x] = qRgb(returnMedInVector(redVec),returnMedInVector(greenVec),returnMedInVector(blueVec));
-        }
         }
     }
 

@@ -102,11 +102,11 @@ void medianMasking(const QImage& src, QImage& dst, int r){
 
     QImage tempImage = line_borders_img(src,r);
     if(r > 0){
-    for(int y = 0; y < src.height(); y++){
-
-        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
-
-
+        for(int y = 0; y < src.height(); y++){
+    
+            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+    
+    
             for(int x = 0; x < src.width(); x++){
 
                 std::vector<uchar> redVec;
@@ -122,6 +122,20 @@ void medianMasking(const QImage& src, QImage& dst, int r){
                     blueVec.push_back(qBlue(pixel_border[x+ix + r]));
 
                 }
+
+                pixel_dst[x] = qRgb(returnMedInVector(redVec),returnMedInVector(greenVec),returnMedInVector(blueVec));
+            }
+        }
+        for(int y = 0; y < src.height(); y++){
+
+            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+
+
+            for(int x = 0; x < src.width(); x++){
+
+                std::vector<uchar> redVec;
+                std::vector<uchar> greenVec;
+                std::vector<uchar> blueVec;
 
                 for(int iy = -r; iy <=r;iy++){
 

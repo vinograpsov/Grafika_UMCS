@@ -364,7 +364,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv2d(originalImage,processImage,get2DMaskBlurGaus(value),value);
+        conv1d(originalImage,processImage,get1DMaskBlurGaus(value),value);
 
         get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));

@@ -55,8 +55,8 @@ public:
         horizontalSlider->setObjectName("horizontalSlider");
         horizontalSlider->setMinimum(-100);
         horizontalSlider->setMaximum(100);
-        horizontalSlider->setValue(0);
-        horizontalSlider->setSliderPosition(0);
+        horizontalSlider->setValue(1);
+        horizontalSlider->setSliderPosition(1);
         horizontalSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout->addWidget(horizontalSlider);

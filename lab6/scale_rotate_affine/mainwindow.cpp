@@ -10,19 +10,28 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void scaleImage(const QImage& src, QImage& dst,float s){
-    int w = src.width() * s;
-    int h = src.height() * s;
+    int w, h;
+    if(s == 0) s = 1;
+
+    w = src.width() * abs(s);
+    h = src.height() * abs(s);
+
+
     dst = QImage(w,h,src.format());
+
+    int xp,yp;
 
     for(int y = 0; y < src.height(); y++){
         for(int x = 0; x < src.width(); x++){
-//            int xp = round((float)x / (float)s);
-//            int yp = round((float)y / (float)s);
 
-            int xp = round(x * s);
-            int yp = round(y * s);
-
-
+            if(s > 0){
+                xp = round(x * s);
+                yp = round(y * s);
+            }
+            else if(s < 0){
+                xp = round((float)x / (float)abs(s));
+                yp = round((float)y / (float)abs(s));
+            }
             QRgb *pixel_src = (QRgb*)src.scanLine(y);
             QRgb *pixel_dst = (QRgb*)dst.scanLine(yp);
 
@@ -132,8 +141,12 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    float matrix[9] = {0,0,}
-    rotateImage(originalImage,processImage,value / 100.0f);
+    float matrix[9] = {1,0,2,
+                       0,1,0,
+                       0,0,1};
+    affineImage(originalImage,processImage,matrix);
+//    scaleImage(originalImage,processImage,value);
+//    rotateImage(originalImage,processImage,value / 100.0f);
     ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 
