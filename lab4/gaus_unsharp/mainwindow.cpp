@@ -248,15 +248,15 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
 
                 }
 
-//                int mask_sum = 0;
-//                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
+                int mask_sum = 0;
+                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
 
 
-//                if (mask_sum == 0) mask_sum = 1;
+                if (mask_sum == 0) mask_sum = 1;
 
-//                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
-//                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
-//                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
+                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
+                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
+                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
 
 //                rr = clamp<int>((float)rr ,0,255);
 //                gg = clamp<int>((float)gg ,0,255);
@@ -291,15 +291,15 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
 
                 }
 
-//                int mask_sum = 0;
-//                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
+                int mask_sum = 0;
+                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
 
 
-//                if (mask_sum == 0) mask_sum = 1;
+                if (mask_sum == 0) mask_sum = 1;
 
-//                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
-//                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
-//                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
+                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
+                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
+                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
 
 //                rr = clamp<int>((float)rr, 0,255);
 //                gg = clamp<int>((float)gg ,0,255);
@@ -364,7 +364,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv2d(originalImage,processImage,get2DMaskBlurGaus(value),value);
+        conv1d(originalImage,processImage,get1DMaskBlurGaus(value),value);
 
         get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));

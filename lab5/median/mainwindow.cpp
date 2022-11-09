@@ -89,12 +89,20 @@ std::vector<uchar> insertionSort(std::vector<uchar> arr)
 
 unsigned char returnMedInVector(std::vector<uchar> arr){
     arr = insertionSort(arr);
+
+//    for(int i = 0; i < arr.size(); i++){
+//        std::cout << +arr[i] << " ";
+//    }
+//    std::cout << std::endl;
+
     uchar mode = arr.size() % 2;
     if(mode == 0){
+//        std::cout << +(arr[arr.size() / 2] + arr[arr.size() / 2 + 1]) / 2 << std::endl;
         return (arr[arr.size() / 2] + arr[arr.size() / 2 + 1]) / 2;
     }
     else{
-        return arr[arr.size() / 2 + 1];
+//        std::cout << +arr[arr.size() / 2] << std::endl;
+        return arr[arr.size() / 2];
     }
 }
 
