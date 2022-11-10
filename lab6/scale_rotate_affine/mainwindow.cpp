@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
-
+#include <iostream>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -102,20 +102,19 @@ void affineImage(const QImage& src, QImage& dst,float matrix[9]){
             int xs = x * inv[0] + y * inv[1] + inv[2];
             int ys = x * inv[3] + y * inv[4] + inv[5];
 
+            std::cout << "[" << ys << ", " << xs << "]" << " ";
+//            QRgb *pixel_src = (QRgb*)src.scanLine(y);
+//            QRgb *pixel_dst = (QRgb*)dst.scanLine(ys);
 
-            QRgb *pixel_src = (QRgb*)src.scanLine(y);
-            QRgb *pixel_dst = (QRgb*)dst.scanLine(ys);
 
+//            uchar r = qRed(pixel_src[x]);
+//            uchar g = qGreen(pixel_src[x]);
+//            uchar b = qBlue(pixel_src[x]);
+//            pixel_dst[xs] = qRgb(r,g,b);
 
-            uchar r = qRed(pixel_src[x]);
-            uchar g = qGreen(pixel_src[x]);
-            uchar b = qBlue(pixel_src[x]);
-
-            pixel_dst[xs] = qRgb(r,g,b);
         }
+        std::cout << std::endl;
     }
-
-
 }
 
 MainWindow::~MainWindow()
@@ -141,12 +140,12 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    float matrix[9] = {1,0,2,
-                       0,1,0,
+    float matrix[9] = {1,0,0,
+                       2,1,0,
                        0,0,1};
     affineImage(originalImage,processImage,matrix);
 //    scaleImage(originalImage,processImage,value);
 //    rotateImage(originalImage,processImage,value / 100.0f);
-    ui->image->setPixmap(QPixmap::fromImage(processImage));
+//    ui->image->setPixmap(QPixmap::fromImage(processImage));
 }
 

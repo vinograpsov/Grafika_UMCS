@@ -222,9 +222,7 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
     if(r > 0){
         for(int y = 0; y < src.height(); y++){
 
-            int rr = 0;
-            int gg = 0;
-            int bb = 0;
+
 
             QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
@@ -236,6 +234,17 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
                 std::vector<uchar> blueVec;
 
                 QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + r);
+
+
+//                int rr = 0;
+//                int gg = 0;
+//                int bb = 0;
+
+
+                int rr = qRed(pixel_border[x + r]);
+                int gg = qGreen(pixel_border[x + r]);
+                int bb = qBlue(pixel_border[x + r]);
+
 
                 for(int ix = -r; ix <=r;ix++){
 
@@ -266,14 +275,24 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
         }
         for(int y = 0; y < src.height(); y++){
 
-            int rr = 0;
-            int gg = 0;
-            int bb = 0;
+
+
+            QRgb *pixel_src = (QRgb*)tempImage.scanLine(y + r);
+
+
 
             QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
 
 
             for(int x = 0; x < src.width(); x++){
+
+//                int rr = 0;
+//                int gg = 0;
+//                int bb = 0;
+
+                int rr = qRed(pixel_src[x + r]);
+                int gg = qGreen(pixel_src[x + r]);
+                int bb = qBlue(pixel_src[x + r]);
 
                 std::vector<uchar> redVec;
                 std::vector<uchar> greenVec;
@@ -364,7 +383,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv1d(originalImage,processImage,get1DMaskBlurGaus(value),value);
+        conv2d(originalImage,processImage,get2DMaskBlurGaus(value),value);
 
         get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));
