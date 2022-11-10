@@ -140,6 +140,7 @@ std::vector<int> get2DMaskBlurGaus(int r){
 
 float get_super_hard_exp_1d(int x,float sigma){
     float power_of_exp = (float)std::pow(x,2) / (float)(2 * std::pow(sigma,2));
+    std::cout << power_of_exp << "\n";
     return exp(-power_of_exp);
 }
 
@@ -150,14 +151,14 @@ float return_point_gauss_1d(int x, float sigma){
 std::vector<int> get1DMaskBlurGaus(int r){
     std::vector<int> out;
 
-    float sigma = get_sigma(r);
+    float sigma = (2 * r + 1) / 2 * M_PI;
 
     for(int x = -r; x <= r; x++){
-//        out.push_back(return_point_gauss_1d(x,sigma));
+//        out.push_back(100 * return_point_gauss_1d(x,sigma));
         out.push_back(100 * get_super_hard_exp_1d(x,sigma));
     }
 
-    out = normalise(out);
+//    out = normalise(out);
 
     for(int j = 0; j < out.size(); j++){
         std::cout << out[j] << " ";
@@ -220,61 +221,9 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
 void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
-    QImage tempImage = line_borders_img(src,r);
+//    QImage tempImage = line_borders_img(src,r);
     if(r > 0){
-        for(int y = 0; y < src.height(); y++){
-
-
-
-            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
-
-
-            for(int x = 0; x < src.width(); x++){
-
-                std::vector<uchar> redVec;
-                std::vector<uchar> greenVec;
-                std::vector<uchar> blueVec;
-
-                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + r);
-
-
-//                int rr = 0;
-//                int gg = 0;
-//                int bb = 0;
-
-
-                int rr = qRed(pixel_border[x + r]);
-                int gg = qGreen(pixel_border[x + r]);
-                int bb = qBlue(pixel_border[x + r]);
-
-
-                for(int ix = -r; ix <=r;ix++){
-
-                    int tmp_x = get_vector_pos(ix,r);
-
-                    rr += qRed(pixel_border[x+ix + r]) * mask[tmp_x];
-                    gg += qGreen(pixel_border[x+ix + r]) * mask[tmp_x];
-                    bb += qBlue(pixel_border[x+ix + r]) * mask[tmp_x];
-
-
-                }
-
-                int mask_sum = 0;
-                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
-
-
-                if (mask_sum == 0) mask_sum = 1;
-
-                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
-                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
-                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
-
-//                rr = clamp<int>((float)rr ,0,255);
-//                gg = clamp<int>((float)gg ,0,255);
-//                bb = clamp<int>((float)bb ,0,255);
-                pixel_dst[x] = qRgb(rr,gg,bb);
-            }
-        }
+        QImage tempImage = line_borders_img(src,r);
         for(int y = 0; y < src.height(); y++){
 
 
@@ -323,6 +272,60 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
                 bb = clamp<int>((float)bb / (float)mask_sum,0,255);
 
 //                rr = clamp<int>((float)rr, 0,255);
+//                gg = clamp<int>((float)gg ,0,255);
+//                bb = clamp<int>((float)bb ,0,255);
+                pixel_dst[x] = qRgb(rr,gg,bb);
+            }
+        }
+        tempImage = line_borders_img(dst,r);
+        for(int y = 0; y < src.height(); y++){
+
+
+
+            QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+
+
+            for(int x = 0; x < src.width(); x++){
+
+                std::vector<uchar> redVec;
+                std::vector<uchar> greenVec;
+                std::vector<uchar> blueVec;
+
+                QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + r);
+
+
+//                int rr = 0;
+//                int gg = 0;
+//                int bb = 0;
+
+
+                int rr = qRed(pixel_border[x + r]);
+                int gg = qGreen(pixel_border[x + r]);
+                int bb = qBlue(pixel_border[x + r]);
+
+
+                for(int ix = -r; ix <=r;ix++){
+
+                    int tmp_x = get_vector_pos(ix,r);
+
+                    rr += qRed(pixel_border[x+ix + r]) * mask[tmp_x];
+                    gg += qGreen(pixel_border[x+ix + r]) * mask[tmp_x];
+                    bb += qBlue(pixel_border[x+ix + r]) * mask[tmp_x];
+
+
+                }
+
+                int mask_sum = 0;
+                mask_sum = std::accumulate(mask.begin(), mask.end(), 0);
+
+
+                if (mask_sum == 0) mask_sum = 1;
+
+                rr = clamp<int>((float)rr / (float)mask_sum,0,255);
+                gg = clamp<int>((float)gg / (float)mask_sum,0,255);
+                bb = clamp<int>((float)bb / (float)mask_sum,0,255);
+
+//                rr = clamp<int>((float)rr ,0,255);
 //                gg = clamp<int>((float)gg ,0,255);
 //                bb = clamp<int>((float)bb ,0,255);
                 pixel_dst[x] = qRgb(rr,gg,bb);
