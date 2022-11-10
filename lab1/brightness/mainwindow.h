@@ -23,6 +23,22 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
+// eventy kliknincia
+protected:
+    void mousePressEvent(QMouseEvent*); // kliknincie
+//    void mouseReleaseEvent(QMouseEvent*); // kiedy puscimy
+//    void mouseDoubleClickEvent(QMouseEvent*);
+//    void mouseMoveEvent(QMouseEvent*);
+
+    void keyPressEvent(QKeyEvent*);
+//    void keyReleaseEvent(QKeyEvent*);
+
+
+
+
+
 public slots:
     void openImage();
 

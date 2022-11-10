@@ -13,7 +13,7 @@ float get_sigma(int r){
     }
 }
 
-std::vector<float> normalise(std::vector<float> matrix){
+std::vector<int> normalise(std::vector<int> matrix){
     float super_value = 0;
 
     for(int i = 0; i < matrix.size(); i++){
@@ -105,8 +105,8 @@ float return_point_gauss_2d(int x, int y, float sigma){
     return (1 / (float)(2 * M_PI * pow(sigma,2))) * get_super_hard_exp_2d(x,y,sigma);
 }
 
-std::vector<float> get2DMaskBlurGaus(int r){
-    std::vector<float> out;
+std::vector<int> get2DMaskBlurGaus(int r){
+    std::vector<int> out;
 
 
     float sigma = get_sigma(r);
@@ -120,7 +120,8 @@ std::vector<float> get2DMaskBlurGaus(int r){
 
     for(int y = -r; y <= r; y++){
         for(int x = -r; x <= r; x++){
-            out.push_back(return_point_gauss_2d(x,y,sigma));
+//            out.push_back(return_point_gauss_2d(x,y,sigma));
+             out.push_back(100 * get_super_hard_exp_2d(x,y,sigma));
         }
     }
 
@@ -146,13 +147,14 @@ float return_point_gauss_1d(int x, float sigma){
     return (1.0f / (std::pow((2.0f * M_PI + sigma),0.5f))) * get_super_hard_exp_1d(x,sigma);
 }
 
-std::vector<float> get1DMaskBlurGaus(int r){
-    std::vector<float> out;
+std::vector<int> get1DMaskBlurGaus(int r){
+    std::vector<int> out;
 
     float sigma = get_sigma(r);
 
     for(int x = -r; x <= r; x++){
-        out.push_back(return_point_gauss_1d(x,sigma));
+//        out.push_back(return_point_gauss_1d(x,sigma));
+        out.push_back(100 * get_super_hard_exp_1d(x,sigma));
     }
 
     out = normalise(out);
@@ -165,7 +167,7 @@ std::vector<float> get1DMaskBlurGaus(int r){
 }
 
 
-void conv2d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r){
+void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
     QImage tempImage = line_borders_img(src,r);
 //    QImage tempImage = black_borders_img(src,r);
@@ -216,7 +218,7 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r
 }
 
 
-void conv1d(const QImage& src, QImage& dst,const std::vector<float>& mask, int r){
+void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
     QImage tempImage = line_borders_img(src,r);
     if(r > 0){
@@ -383,7 +385,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv2d(originalImage,processImage,get2DMaskBlurGaus(value),value);
+        conv1d(originalImage,processImage,get1DMaskBlurGaus(value),value);
 
         get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));

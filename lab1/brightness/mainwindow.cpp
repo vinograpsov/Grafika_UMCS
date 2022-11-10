@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <iostream>
 #include <QFileDialog>
 
 void brightness_gamma(const QImage &src, QImage &dst, float gamma) {
@@ -42,7 +42,6 @@ void brightness(const QImage &src, QImage &dst, int v) {
 }
 
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -57,6 +56,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
+
+
+#include<QMouseEvent>
+void MainWindow::mousePressEvent(QMouseEvent *e){
+    if(e->button() == Qt::LeftButton){
+        QPoint p = e->pos();
+        std::cout << p.x() << " " << p.y() << "\n";
+        QPoint label_pos = ui->label->pos();
+        label_pos.y();
+    }
+    else if(e->button()== Qt::RightButton){
+
+    }
+}
+
+#include<QKeyEvent>
+void MainWindow::keyPressEvent(QKeyEvent *e){
+    if(e->key() == Qt::Key_P){
+
+    }
+}
 
 void MainWindow::openImage() {
     QString fileName = QFileDialog::getOpenFileName();
