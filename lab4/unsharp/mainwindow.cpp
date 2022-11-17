@@ -335,7 +335,11 @@ void unsharp_mask(const QImage& src, QImage& dst,const std::vector<int>& mask, i
 
     // tablice shortow
 
-    float alpha = 1.5f;
+    std::vector<int> rr_vec;
+    std::vector<int> gg_vec;
+    std::vector<int> bb_vec;
+
+    float alpha = 0.8f;
     for(int y = 0; y < src.height(); y++){
 
         QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
@@ -343,15 +347,9 @@ void unsharp_mask(const QImage& src, QImage& dst,const std::vector<int>& mask, i
         QRgb *pixel_temp = (QRgb*)temp.scanLine(y);
         for(int x = 0; x < src.width(); x++){
 
-            int rr = qRed(pixel_src[x]);
-            int gg = qGreen(pixel_src[x]);
-            int bb = qBlue(pixel_src[x]);
-
-            rr = abs(rr - qRed(pixel_temp[x]));
-            gg = abs(gg - qGreen(pixel_temp[x]));
-            bb = abs(bb - qBlue(pixel_temp[x]));
-
-            pixel_temp[x] = qRgb(rr,gg,bb);
+            rr_vec.push_back(abs(qRed(pixel_src[x]) - qRed(pixel_temp[x])));
+            gg_vec.push_back(abs(qGreen(pixel_src[x]) - qGreen(pixel_temp[x])));
+            bb_vec.push_back(abs(qBlue(pixel_src[x]) - qBlue(pixel_temp[x])));
         }
     }
 
@@ -363,18 +361,13 @@ void unsharp_mask(const QImage& src, QImage& dst,const std::vector<int>& mask, i
         QRgb *pixel_temp = (QRgb*)temp.scanLine(y);
         for(int x = 0; x < src.width(); x++){
 
-            int rr = qRed(pixel_temp[x]);
-            int gg = qGreen(pixel_temp[x]);
-            int bb = qBlue(pixel_temp[x]);
-
 //            rr = clamp<int>((float)qRed(pixel_src[x]) - (float)rr * alpha,0,255);
 //            gg = clamp<int>((float)qGreen(pixel_src[x]) - (float)gg * alpha,0,255);
 //            bb = clamp<int>((float)qBlue(pixel_src[x]) - (float)bb * alpha,0,255);
 
-
-            rr = clamp<int>((float)qRed(pixel_src[x]) + (float)rr,0,255);
-            gg = clamp<int>((float)qGreen(pixel_src[x]) + (float)gg,0,255);
-            bb = clamp<int>((float)qBlue(pixel_src[x]) + (float)bb,0,255);
+            int rr = clamp<int>((float)qRed(pixel_src[x]) + alpha * (float)rr_vec[y * src.width() + x],0,255);
+            int gg = clamp<int>((float)qGreen(pixel_src[x]) + alpha * (float)gg_vec[y * src.width() + x],0,255);
+            int bb = clamp<int>((float)qBlue(pixel_src[x]) + alpha * (float)bb_vec[y * src.width() + x],0,255);
 
             pixel_dst[x] = qRgb(rr,gg,bb);
         }
