@@ -3,7 +3,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <cmath>
-
+#include <cstdlib>
 float get_sigma(int r){
     if(r == 0){
         return 1;
@@ -158,7 +158,6 @@ std::vector<int> get1DMaskBlurGaus(int r){
         out.push_back(100 * get_super_hard_exp_1d(x,sigma));
     }
 
-//    out = normalise(out);
 
     for(int j = 0; j < out.size(); j++){
         std::cout << out[j] << " ";
@@ -171,7 +170,7 @@ std::vector<int> get1DMaskBlurGaus(int r){
 void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
     QImage tempImage = line_borders_img(src,r);
-//    QImage tempImage = black_borders_img(src,r);
+
 
     for(int y = 0; y < src.height(); y++){
 
@@ -208,7 +207,7 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
 
             if (mask_sum == 0) mask_sum = 1;
- // ???????????????????????????????????????????????? maska xz cio
+
             rr = clamp<int>((float)rr / (float)mask_sum,0,255);
             gg = clamp<int>((float)gg / (float)mask_sum,0,255);
             bb = clamp<int>((float)bb / (float)mask_sum,0,255);
@@ -220,8 +219,6 @@ void conv2d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
 
 void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
-
-//    QImage tempImage = line_borders_img(src,r);
     if(r > 0){
         QImage tempImage = line_borders_img(src,r);
         for(int y = 0; y < src.height(); y++){
@@ -237,9 +234,6 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 
             for(int x = 0; x < src.width(); x++){
 
-//                int rr = 0;
-//                int gg = 0;
-//                int bb = 0;
 
                 int rr = qRed(pixel_src[x + r]);
                 int gg = qGreen(pixel_src[x + r]);
@@ -271,9 +265,6 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
                 gg = clamp<int>((float)gg / (float)mask_sum,0,255);
                 bb = clamp<int>((float)bb / (float)mask_sum,0,255);
 
-//                rr = clamp<int>((float)rr, 0,255);
-//                gg = clamp<int>((float)gg ,0,255);
-//                bb = clamp<int>((float)bb ,0,255);
                 pixel_dst[x] = qRgb(rr,gg,bb);
             }
         }
@@ -292,12 +283,6 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
                 std::vector<uchar> blueVec;
 
                 QRgb *pixel_border = (QRgb*)tempImage.scanLine(y + r);
-
-
-//                int rr = 0;
-//                int gg = 0;
-//                int bb = 0;
-
 
                 int rr = qRed(pixel_border[x + r]);
                 int gg = qGreen(pixel_border[x + r]);
@@ -324,10 +309,6 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
                 rr = clamp<int>((float)rr / (float)mask_sum,0,255);
                 gg = clamp<int>((float)gg / (float)mask_sum,0,255);
                 bb = clamp<int>((float)bb / (float)mask_sum,0,255);
-
-//                rr = clamp<int>((float)rr ,0,255);
-//                gg = clamp<int>((float)gg ,0,255);
-//                bb = clamp<int>((float)bb ,0,255);
                 pixel_dst[x] = qRgb(rr,gg,bb);
             }
         }
@@ -348,7 +329,70 @@ void conv1d(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
 }
 
 
+void unsharp_mask(const QImage& src, QImage& dst,const std::vector<int>& mask, int r){
+    QImage temp = src;
+    conv1d(src,temp,mask,r);
 
+    // tablice shortow
+
+    float alpha = 1.5f;
+    for(int y = 0; y < src.height(); y++){
+
+        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+        QRgb *pixel_src = (QRgb*)src.scanLine(y);
+        QRgb *pixel_temp = (QRgb*)temp.scanLine(y);
+        for(int x = 0; x < src.width(); x++){
+
+            int rr = qRed(pixel_src[x]);
+            int gg = qGreen(pixel_src[x]);
+            int bb = qBlue(pixel_src[x]);
+
+            rr = abs(rr - qRed(pixel_temp[x]));
+            gg = abs(gg - qGreen(pixel_temp[x]));
+            bb = abs(bb - qBlue(pixel_temp[x]));
+
+            pixel_temp[x] = qRgb(rr,gg,bb);
+        }
+    }
+
+
+    for(int y = 0; y < src.height(); y++){
+
+        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+        QRgb *pixel_src = (QRgb*)src.scanLine(y);
+        QRgb *pixel_temp = (QRgb*)temp.scanLine(y);
+        for(int x = 0; x < src.width(); x++){
+
+            int rr = qRed(pixel_temp[x]);
+            int gg = qGreen(pixel_temp[x]);
+            int bb = qBlue(pixel_temp[x]);
+
+//            rr = clamp<int>((float)qRed(pixel_src[x]) - (float)rr * alpha,0,255);
+//            gg = clamp<int>((float)qGreen(pixel_src[x]) - (float)gg * alpha,0,255);
+//            bb = clamp<int>((float)qBlue(pixel_src[x]) - (float)bb * alpha,0,255);
+
+
+            rr = clamp<int>((float)qRed(pixel_src[x]) + (float)rr,0,255);
+            gg = clamp<int>((float)qGreen(pixel_src[x]) + (float)gg,0,255);
+            bb = clamp<int>((float)qBlue(pixel_src[x]) + (float)bb,0,255);
+
+            pixel_dst[x] = qRgb(rr,gg,bb);
+        }
+    }
+
+    // alpha na 0.3
+
+
+//    for(int y = 0; y < src.height(); y++){
+//        QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
+//        QRgb *pixel_temp = (QRgb*)temp.scanLine(y);
+//        for(int x = 0; x < src.width(); x++){
+//            pixel_dst[x] = qRgb(qRed(pixel_temp[x]),qGreen(pixel_temp[x]),qBlue(pixel_temp[x]));
+//        }
+//    }
+
+
+}
 
 
 
@@ -375,9 +419,6 @@ void MainWindow::openImage(){
         ui->image->setPixmap(QPixmap::fromImage(originalImage));
     }
 
-//    processImage = line_borders_img(originalImage, 20);
-//    processImage = black_borders_img(originalImage, 20);
-//    ui->border_image->setPixmap(QPixmap::fromImage(processImage));
 
 }
 
@@ -388,7 +429,7 @@ void MainWindow::on_Open_triggered()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-        conv1d(originalImage,processImage,get1DMaskBlurGaus(70),70);
+        unsharp_mask(originalImage,processImage,get1DMaskBlurGaus(value),value);
 
         get1DMaskBlurGaus(value);
         ui->image->setPixmap(QPixmap::fromImage(processImage));

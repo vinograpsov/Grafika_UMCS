@@ -107,6 +107,7 @@ void draw_line_on_second_click(int x, int y, QImage &I){
         click++;
     }
 }
+
 void setWhite(QImage &I){
     for (int y = 0; y < I.height(); y++) {
         QRgb *pixel_src = (QRgb*)I.scanLine(y);
