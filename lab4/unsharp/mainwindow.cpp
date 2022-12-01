@@ -339,7 +339,7 @@ void unsharp_mask(const QImage& src, QImage& dst,const std::vector<int>& mask, i
     std::vector<int> gg_vec;
     std::vector<int> bb_vec;
 
-    float alpha = 0.8f;
+    float alpha = 1.0f;
     for(int y = 0; y < src.height(); y++){
 
         QRgb *pixel_dst = (QRgb*)dst.scanLine(y);
