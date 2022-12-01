@@ -26,6 +26,7 @@ void GLWidget::initializeGL()
     axes->setVertices(0, verts, 6);
     axes->setAttribute(1, colors, 6);
 
+    MVMat = identity();
 
     PRINT_GL_ERRORS("Widget::initializeGL(): ");
 }
