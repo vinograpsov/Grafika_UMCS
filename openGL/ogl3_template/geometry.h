@@ -31,8 +31,8 @@ public:
 
     //void setIndices(uint* data, int n);
 
-    void setVertices(uint index, vec3* verts, int n);
-    void setAttribute(uint index, vec3* data, int n);
+    void setVertices(uint index, glm::vec3* verts, int n);
+    void setAttribute(uint index, glm::vec3* data, int n);
 
     //void setAttribute(vec2* data, int n);
     //void setAttribute(float* data, int n);

@@ -1,5 +1,11 @@
 #include "geometry.h"
 
+inline void PRINT_GL_ERRORS(const char* mess)
+{
+    GLenum err;
+    while( (err=glGetError()) != GL_NO_ERROR) { qDebug() << "ERROR in: " << mess << (const char*)gluErrorString(err); }
+}
+
 Geometry::Geometry()
 {
     // inicjalizacja wskaznikow do funkcji OpenGLa
@@ -23,17 +29,17 @@ void Geometry::render()
         glDrawArrays(primitiveMode, 0, n_verts);
     glBindVertexArray(0);
 
-    PRINT_GL_ERRORS("Geometry::render(): ");
+//    PRINT_GL_ERRORS("Geometry::render(): ");
 }
 
-void Geometry::setVertices(uint index, vec3* verts, int n)
+void Geometry::setVertices(uint index, glm::vec3* verts, int n)
 {
     n_verts = n;
     setAttribute(index, verts, n);
-    PRINT_GL_ERRORS("Geometry::setVertices(): ");
+//    PRINT_GL_ERRORS("Geometry::setVertices(): ");
 }
 
-void Geometry::setAttribute(uint index, vec3 *data, int n)
+void Geometry::setAttribute(uint index, glm::vec3 *data, int n)
 {
     //wygenerowanie nazwy bufora dla atrybutu i dodanie do mapy pod konkretnym indexem
     if( !bufferObjects.contains(index) )
@@ -50,11 +56,11 @@ void Geometry::setAttribute(uint index, vec3 *data, int n)
         glBindBuffer(GL_ARRAY_BUFFER, bufferObjects[index]);
         glEnableVertexAttribArray(index);
         glVertexAttribPointer(index,3 , GL_FLOAT, GL_FALSE, 0,0);
-        glBufferData(GL_ARRAY_BUFFER, n * sizeof(vec3), data, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, n * sizeof(glm::vec3), data, GL_STATIC_DRAW);
 
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0 );
-    PRINT_GL_ERRORS("Geometry::setAttribute(): ");
+//    PRINT_GL_ERRORS("Geometry::setAttribute(): ");
 }
 

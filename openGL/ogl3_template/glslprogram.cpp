@@ -7,6 +7,11 @@
 #include<QTextStream>
 #include <QString>
 
+inline void PRINT_GL_ERRORS(const char* mess)
+{
+    GLenum err;
+    while( (err=glGetError()) != GL_NO_ERROR) { qDebug() << "ERROR in: " << mess << (const char*)gluErrorString(err); }
+}
 
 GLSLProgram::GLSLProgram()
 {
@@ -62,10 +67,11 @@ bool GLSLProgram::link()
 void GLSLProgram::use()
 {
     glUseProgram(handle);
-    PRINT_GL_ERRORS("GLSLProgram::use(): ");
+//    PRINT_GL_ERRORS("GLSLProgram::use(): ");
+
 }
 
-void GLSLProgram::setUniform(const char* name, vec3 v)
+void GLSLProgram::setUniform(const char* name, glm::vec3 v)
 {
     GLint loc = glGetUniformLocation(handle, name);
     if(loc != -1)
@@ -75,11 +81,11 @@ void GLSLProgram::setUniform(const char* name, vec3 v)
     // else PRINT SOME ERROR
 }
 
-void GLSLProgram::setUniform(const char *name, mat4 mat)
+void GLSLProgram::setUniform(const char *name, glm::mat4 mat)
 {
     GLint loc = glGetUniformLocation(handle, name);
     if(loc != -1)
-        glUniformMatrix4fv(loc, 1, GL_FALSE, mat.m);
+        glUniformMatrix4fv(loc, 1, GL_FALSE, /*mat.m*/ &mat[0][0]);
     // else PRINT SOME ERROR
 }
 

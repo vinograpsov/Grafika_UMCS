@@ -12,18 +12,22 @@
 
 #include <QOpenGLFunctions_4_5_Core>
 #include <QMap>
+#include<QTimer>
 
-
-#include "mathgl.h"
-
+//#include "mathgl.h"
+#include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
 {
     GLSLProgram* prog;
     Geometry* axes;
+    Geometry* rectangle;
 
-    mat4 MVMat;
-    mat4 ProjMat;
+    QTimer timer;
+
+    glm::mat4 MVMat;
+    glm::mat4 ProjMat;
 
 protected:
     void initializeGL();

@@ -10,8 +10,8 @@
 #include <QDebug>
 #include <GL/glu.h>
 
-#include "mathgl.h"
-
+//#include "mathgl.h"
+#include<glm/glm.hpp>
 
 //Klasa zarzadzajaca programem shadera
 // .... do dalszej rozbudowy ....
@@ -31,8 +31,8 @@ public:
     //void bindAttribLocation(GLuint location, const char* name);
     //void setUniform(const char* name, int v);
     //void setUniform(const char* name, float v);
-    void setUniform(const char* name, vec3 v);
-    void setUniform(const char* name, mat4 mat);
+    void setUniform(const char* name, glm::vec3 v);
+    void setUniform(const char* name, glm::mat4 mat);
 };
 
 #endif // GLSLPROGRAM_H

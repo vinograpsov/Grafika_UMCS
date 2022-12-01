@@ -1,7 +1,12 @@
 #include "glwidget.h"
 #include <QFile>
 #include <QTextStream>
-
+#include<QTimer>
+inline void PRINT_GL_ERRORS(const char* mess)
+{
+    GLenum err;
+    while( (err=glGetError()) != GL_NO_ERROR) { qDebug() << "ERROR in: " << mess << (const char*)gluErrorString(err); }
+}
 
 GLWidget::GLWidget() { }
 
@@ -21,14 +26,30 @@ void GLWidget::initializeGL()
     // jakas geometria
     axes = new Geometry();
     axes->primitiveMode = GL_LINES;
-    vec3 verts[] = { {0,0,0}, {0.5,0,0}, {0,0,0}, {0,0.5,0}, {0,0,0}, {0,0,0.5} };
-    vec3 colors[] = { {1,0,0}, {1,0,0},   {0,1,0}, {0,1,0},   {0,0,1}, {0,0,1} };
-    axes->setVertices(0, verts, 6);
-    axes->setAttribute(1, colors, 6);
+    glm::vec3 verts[] = { {0,0,0}, {0.5,0,0}, {0,0,0}, {0,0.5,0}, {0,0,0}, {0,0,0.5},  {0.5,0,0}, {0.5,0.5,0}, {0,0.5,0}, {0.5,0.5,0}};
+    glm::vec3 colors[] = { {1,0,0}, {1,0,0},   {0,1,0}, {0,1,0},   {0,0,1}, {0,0,1},   {1,0,0}, {1,0,0},   {0,1,0}, {0,1,0} };
+    axes->setVertices(0, verts, 10);
+    axes->setAttribute(1, colors, 10);
 
-    MVMat = identity();
+    rectangle = new Geometry();
+    rectangle->primitiveMode = GL_TRIANGLES;
+    glm::vec3 verts_2[] ={{-0.2,-0.2,0.0},{0.2,-0.2,0.0},{0.2,0.2,0.0},
+                    {-0.2,-0.2,0.0},{0.2,0.2,0.0},{-0.2,0.2,0.0}};
+    glm::vec3 colors_2[] ={{1,0,0},{1,1,0},{1,0,1},
+                    {1,0,1},{1,1,0},{1,1,0}};
+    rectangle->setVertices(0,verts_2,6);
+    rectangle->setAttribute(1,colors_2,6);
 
-    PRINT_GL_ERRORS("Widget::initializeGL(): ");
+
+//    MVMat = identity();
+    MVMat = glm::mat4(1.0);
+
+//    PRINT_GL_ERRORS("Widget::initializeGL(): ");
+
+
+    timer.setInterval(16);
+    connect(&timer,SIGNAL(timeout()),this,SLOT(update()));
+    timer.start();
 }
 
 void GLWidget::resizeGL(int w, int h)
@@ -38,11 +59,13 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::paintGL()
 {
-    PRINT_GL_ERRORS("Widget::paintGL(): ");
+//    PRINT_GL_ERRORS("Widget::paintGL(): ");
 
     prog->use();
+    MVMat = glm::rotate<float>(MVMat,0.01,glm::vec3(0,1,0));
     prog->setUniform("MVMat", MVMat);
     axes->render();
+    rectangle->render();
 }
 
 
