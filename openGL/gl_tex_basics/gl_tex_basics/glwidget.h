@@ -25,10 +25,14 @@ class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
     QMap<QString, glm::mat4> geometryMat;
 
     glm::mat4 viewMat;
+    glm::mat4 viewMat_moon;
 //    glm::mat4 ProjMat;
 
     float earth_orbit_angle;
     float earth_mid_rotate;
+
+    float moon_orbit_angle;
+    float moon_mid_rotate;
 
     QTimer frame_timer;
     int frame;

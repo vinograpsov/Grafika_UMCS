@@ -12,6 +12,9 @@ GLWidget::GLWidget()
     zoom = 1.0f;
     earth_orbit_angle = 0.0f;
     earth_mid_rotate = 0.0f;
+
+    float moon_orbit_angle = 0.0f;
+    float moon_mid_rotate = 0.0f;
 }
 
 void GLWidget::createShaders()
@@ -40,6 +43,8 @@ void GLWidget::createGeometry()
     glm::vec2 plane_uv[] = { {0,0}, {0,1}, {1,1}, {1,0}};
     geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 4);
     geometryMat["earth"] = glm::mat4(1.0);
+
+
 }
 
 void GLWidget::createTextures()
@@ -116,11 +121,56 @@ void GLWidget::paintGL()
     shaders["tex"]->setUniform("SamplerTex", tex_unit);
     geometry["earth"]->render();
 
+// ------------------------------------------------------ mooon
+    geometryMat["moon"] = identity;
+    shaders["tex"]->setUniform("MVMat",glm::mat4(1.0));
+
+
+    viewMat_moon = glm::mat4(1.0);
+
+    viewMat_moon = viewMat_moon * glm::scale(identity, glm::vec3(zoom,zoom,zoom));
+    viewMat_moon = viewMat_moon * glm::rotate(identity,pos_y/100.0f, glm::vec3(1.0f ,0.0f , 0.0f));
+    viewMat_moon = viewMat_moon * glm::rotate(identity,pos_x/100.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+    shaders["basic"]->use();
+    shaders["basic"]->setUniform("MVMat", viewMat_moon);
+    geometry["main_axes"]->render();
+
+    textures["wood"]->bind(2);
+    shaders["tex"]->use();
+
+
+
+
+//    geometryMat["moon"] = glm::rotate(identity, earth_orbit_angle,glm::vec3(0.0f,0.0f,1.0f));
+
+//    glm::mat4 R_orb_moon = glm::rotate(identity, earth_orbit_angle,glm::vec3(0.0f,0.0f,1.0f));
+//    glm::mat4 T_moon = glm::translate(identity,glm::vec3(1.0f,0.0f,0.0f));
+//    glm::mat4 R_orb_rev_moon = glm::rotate(identity, -earth_orbit_angle,glm::vec3(0.0f,0.0f,1.0f));
+
+
+//    glm::mat4 R_rot_moon = glm::rotate(identity, moon_mid_rotate,glm::vec3(0.0f,0.0f,1.0f));
+//    glm::mat4 T_rot_moon = glm::translate(identity,glm::vec3(1.0f,0.0f,0.0f));
+
+
+//    geometryMat["moon"] = R_orb_moon * T_moon * R_orb_rev_moon * R_rot_moon * T_rot_moon;
+
+//    glm::mat4 mvMat_moon = viewMat * geometryMat["earth"];
+//    shaders["tex"]->setUniform("MVMat", mvMat);
+//    shaders["tex"]->setUniform("SamplerTex", tex_unit);
+
+
+    geometry["earth"]->render();
+
+
     frame++;
     PRINT_GL_ERRORS("Widget::paintGL(): ");
 
     earth_orbit_angle += 0.01;
     earth_mid_rotate += 0.1;
+
+    float moon_orbit_angle = 0.1f;
+    float moon_mid_rotate = 0.1f;
 
 }
 
