@@ -31,6 +31,13 @@ void GLWidget::createShaders()
     stat &= shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/gl_tex_basics (1)/gl_tex_basics/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
     stat &= shaders["tex"]->link();
     if (!stat) qFatal("Some problem with shader!");
+
+
+    shaders["blur"] = new GLSLProgram;
+    stat = shaders["blur"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/gl_tex_basics (1)/gl_tex_basics/shaders/tex_basic.vert", GL_VERTEX_SHADER);
+    stat &= shaders["blur"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/gl_tex_basics (1)/gl_tex_basics/shaders/blur.frag", GL_FRAGMENT_SHADER);
+    stat &= shaders["blur"]->link();
+    if (!stat) qFatal("Some problem with blur shader!");
 }
 
 void GLWidget::createGeometry()
@@ -162,8 +169,8 @@ void GLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     int tex_unit_wood = 1;
     textures["wood"]->bind(tex_unit_wood);
-    shaders["tex"]->use();
-    shaders["tex"]->setUniform("SamplerTex_1", tex_unit_wood);
+    shaders["blur"]->use();
+    shaders["blur"]->setUniform("SamplerTex_1", tex_unit_wood);
     geometry["earth"]->render();
 
     Framebuffer::bindDefaultFramebuffer();

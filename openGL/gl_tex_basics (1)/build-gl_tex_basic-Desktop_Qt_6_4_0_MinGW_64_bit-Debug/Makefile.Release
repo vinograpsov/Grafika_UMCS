@@ -71,6 +71,7 @@ DIST          = basic.frag \
 		basic.vert \
 		shaders/basic.frag \
 		shaders/basic.vert \
+		shaders/blur.frag \
 		shaders/tex_basic.frag \
 		shaders/tex_basic.vert \
 		tex_basic.frag \
@@ -261,7 +262,9 @@ release/framebuffer.o: ../gl_tex_basics/framebuffer.cpp ../gl_tex_basics/framebu
 		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext_platform.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qwindowdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qwindowdefs_win.h \
-		../gl_tex_basics/texture2d.h
+		../gl_tex_basics/texture2d.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QOpenGLFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglfunctions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\framebuffer.o ..\gl_tex_basics\framebuffer.cpp
 
 release/geometry.o: ../gl_tex_basics/geometry.cpp ../gl_tex_basics/geometry.h \
@@ -970,7 +973,8 @@ release/main.o: ../gl_tex_basics/main.cpp F:/qt/6.4.0/mingw_64/include/QtWidgets
 		../gl_tex_basics/glm/gtc/type_ptr.inl \
 		../gl_tex_basics/glslprogram.h \
 		../gl_tex_basics/geometry.h \
-		../gl_tex_basics/texture2d.h
+		../gl_tex_basics/texture2d.h \
+		../gl_tex_basics/framebuffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\gl_tex_basics\main.cpp
 
 release/glwidget.o: ../gl_tex_basics/glwidget.cpp ../gl_tex_basics/glwidget.h \
@@ -1341,6 +1345,7 @@ release/glwidget.o: ../gl_tex_basics/glwidget.cpp ../gl_tex_basics/glwidget.h \
 		../gl_tex_basics/glslprogram.h \
 		../gl_tex_basics/geometry.h \
 		../gl_tex_basics/texture2d.h \
+		../gl_tex_basics/framebuffer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/QFile \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qfile.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qfiledevice.h \
