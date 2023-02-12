@@ -45,7 +45,7 @@ void GLWidget::createGeometry()
 
 
 
-    geometry["earth"] = newBoxGeometry({1,1,1}, {1,1,1});
+    geometry["earth"] = newSphereGeometry({1,1,1}, {1,1,1} ,0.5,100,100);
     glm::vec3 plane_uv[] = { {0,0,0}, {0,1,0}, {0,0,1}, {1,1,0},
                              {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
     geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);
@@ -58,10 +58,10 @@ void GLWidget::createGeometry()
 
 void GLWidget::createTextures()
 {
-//    bool stat;
-//    textures["wood"] = new Texture2D();
-//    stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
-//    if (!stat) qFatal("Some problem with texture!");
+    bool stat;
+    textures["wood"] = new Texture2D();
+    stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
+    if (!stat) qFatal("Some problem with texture!");
 
 //    textures["clouds"] = new Texture2D();
 //    stat = textures["clouds"]->loadFromFile("C:/Users/KirVin/Downloads/clouds2.png");
@@ -173,8 +173,8 @@ void GLWidget::paintGL()
     geometry["main_axes"]->render();
 
     // wlaczenie tekstury 'wood' w pierwszej jednostce teksturujacej
-//    int tex_unit_wood = 1;
-//    textures["wood"]->bind(tex_unit_wood);
+    int tex_unit_wood = 1;
+    textures["wood"]->bind(tex_unit_wood);
 
 //    // wlaczenie tekstury 'clouds' w drugiej jednostce teksturujacej
 //    int tex_unit_clouds = 2;
@@ -191,7 +191,7 @@ void GLWidget::paintGL()
     shaders["tex"]->use();
     shaders["tex"]->setUniform("MVMat", MVMat);
     shaders["tex"]->setUniform("ProjMat", projMat);
-//    shaders["tex"]->setUniform("SamplerTex_1", tex_unit_wood);
+    shaders["tex"]->setUniform("SamplerTex_1", tex_unit_wood);
 //    shaders["tex"]->setUniform("SamplerTex_2", tex_unit_clouds);
     geometry["earth"]->render();
 
