@@ -1,0 +1,11 @@
+release/main.o
+release/mainwindow.o
+release/builder.o
+release/camera.o
+release/frame.o
+release/geometry.o
+release/glslprogram.o
+release/glwidget.o
+release/stb_image.o
+release/texture2d.o
+release/moc_mainwindow.o
