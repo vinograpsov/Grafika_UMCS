@@ -207,12 +207,14 @@ Geometry* newSphereGeometry(glm::vec3 size, glm::vec3 color, float radius, int s
                 x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
                 y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
 
-                // normalized vertex normal (nx, ny, nz)
-                nx = x * lengthInv;
-                ny = y * lengthInv;
-                nz = z * lengthInv;
+               points.push_back({x,y,z});
 
-                points.push_back({nx,ny,nz});
+                // normalized vertex normal (nx, ny, nz)
+//                nx = x * lengthInv;
+//                ny = y * lengthInv;
+//                nz = z * lengthInv;
+
+//                points.push_back({nx,ny,nz});
             }
         }
 

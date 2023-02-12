@@ -45,7 +45,7 @@ void GLWidget::createGeometry()
 
 
 
-    geometry["earth"] = newSphereGeometry({1,1,1}, {1,1,1} ,0.5,100,100);
+    geometry["earth"] = newSphereGeometry({1,1,1}, {1,1,1} ,10,100,100);
     glm::vec3 plane_uv[] = { {0,0,0}, {0,1,0}, {0,0,1}, {1,1,0},
                              {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
     geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);
