@@ -45,7 +45,7 @@ void GLWidget::createGeometry()
 
 
 
-    geometry["earth"] = newSphereGeometry({1,1,1}, {1,1,1} ,10,100,100);
+    geometry["earth"] = newSphereGeometry({1,1,1}, {1,1,1} ,1,20,20);
     glm::vec3 plane_uv[] = { {0,0,0}, {0,1,0}, {0,0,1}, {1,1,0},
                              {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
     geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);
@@ -60,7 +60,7 @@ void GLWidget::createTextures()
 {
     bool stat;
     textures["wood"] = new Texture2D();
-    stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
+    stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/sphere/sphere/bin/earth2048.bmp");
     if (!stat) qFatal("Some problem with texture!");
 
 //    textures["clouds"] = new Texture2D();
@@ -176,17 +176,19 @@ void GLWidget::paintGL()
     int tex_unit_wood = 1;
     textures["wood"]->bind(tex_unit_wood);
 
+
 //    // wlaczenie tekstury 'clouds' w drugiej jednostce teksturujacej
 //    int tex_unit_clouds = 2;
 //    textures["clouds"]->bind(tex_unit_clouds);
 
     //transformacja earth
-    glm::mat4 R_orb     = glm::rotate(identity(), earth_obrit_angle, glm::vec3(0.0f,0.0f,1.0f));
-    glm::mat4 R_rot     = glm::rotate(identity(), earth_rotate_angle, glm::vec3(0.0f,0.0f,1.0f));
-    frames["earth"].pos = R_orb * glm::vec4(0.75,0.0,0.0,1.0);
-    frames["earth"].up = R_rot * glm::vec4(0.0,1.0,0.0,1.0);
-    MVMat = viewMat * frames["earth"].matrix() * geometryMat["earth"];
+//    glm::mat4 R_orb     = glm::rotate(identity(), earth_obrit_angle, glm::vec3(0.0f,0.0f,1.0f));
+//    glm::mat4 R_rot     = glm::rotate(identity(), earth_rotate_angle, glm::vec3(0.0f,0.0f,1.0f));
+//    frames["earth"].pos = R_orb * glm::vec4(0.75,0.0,0.0,1.0);
+//    frames["earth"].up = R_rot * glm::vec4(0.0,1.0,0.0,1.0);
+//    MVMat = viewMat * frames["earth"].matrix() * geometryMat["earth"];
 
+    MVMat = viewMat *  geometryMat["earth"];
     //render earth shaderem 'tex'
     shaders["tex"]->use();
     shaders["tex"]->setUniform("MVMat", MVMat);

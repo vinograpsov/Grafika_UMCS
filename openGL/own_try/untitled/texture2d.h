@@ -13,6 +13,9 @@ public:
     void unbind();
 
     bool loadFromFile(QString filename);
+
+
+    void bindOnSphere();
 };
 
 #endif // TEXTURE2D_H

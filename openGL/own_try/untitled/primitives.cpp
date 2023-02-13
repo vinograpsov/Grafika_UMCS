@@ -178,6 +178,7 @@ Geometry* newSphereGeometry(glm::vec3 size, glm::vec3 color, float radius, int s
         std::vector<glm::vec3> points;
         std::vector<glm::vec3> pos;
         std::vector<glm::vec3> colors;
+        std::vector<glm::vec2> uv;
         std::vector<uint> indices(36);
 
         std::vector<float> vertices, normals, texCoords;
@@ -208,7 +209,7 @@ Geometry* newSphereGeometry(glm::vec3 size, glm::vec3 color, float radius, int s
                 y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
 
                points.push_back({x,y,z});
-
+// uv push back
                 // normalized vertex normal (nx, ny, nz)
 //                nx = x * lengthInv;
 //                ny = y * lengthInv;
@@ -255,7 +256,10 @@ Geometry* newSphereGeometry(glm::vec3 size, glm::vec3 color, float radius, int s
             colors.push_back(color);
         geometry->setVertices((int)Attributes::position, pos.data(), n);
         geometry->setAttribute((int)Attributes::color, colors.data(), n);
+        geometry->setAttribute((int)Attributes::uv1,uv,n); // и заполнить эту таблицу
 
+
+        // тпе же ьак и тут
 
         for (int i = 0; i < n; i++){
             indices.push_back(i);

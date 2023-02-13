@@ -146,9 +146,9 @@ compiler_clean: compiler_moc_predefs_clean
 
 debug/geometry.o: ../untitled/geometry.cpp ../untitled/geometry.h \
 		../untitled/glslprogram.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QOpenGLFunctions \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglfunctions.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig-bootstrapped.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig.h \
@@ -173,25 +173,27 @@ debug/geometry.o: ../untitled/geometry.cpp ../untitled/geometry.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnumeric.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qversiontagging.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qforeach.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtgui-config.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiexports.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglexports.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnamespace.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtmetamacros.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstring.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qchar.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearray.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qrefcount.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydata.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydatapointer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydataops.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qcontainertools_impl.h \
@@ -204,8 +206,15 @@ debug/geometry.o: ../untitled/geometry.cpp ../untitled/geometry.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qutf8stringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringtokenizer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringbuilder.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qlist.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qiterator.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearraylist.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringlist.h \
@@ -228,8 +237,6 @@ debug/geometry.o: ../untitled/geometry.cpp ../untitled/geometry.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qset.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qhash.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnativeinterface.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qvariant.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdebug.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtextstream.h \
@@ -452,9 +459,9 @@ debug/geometry.o: ../untitled/geometry.cpp ../untitled/geometry.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\geometry.o ..\untitled\geometry.cpp
 
 debug/glslprogram.o: ../untitled/glslprogram.cpp ../untitled/glslprogram.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QOpenGLFunctions \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglfunctions.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig-bootstrapped.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig.h \
@@ -479,25 +486,27 @@ debug/glslprogram.o: ../untitled/glslprogram.cpp ../untitled/glslprogram.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnumeric.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qversiontagging.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qforeach.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtgui-config.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiexports.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglexports.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnamespace.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtmetamacros.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstring.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qchar.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearray.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qrefcount.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydata.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydatapointer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydataops.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qcontainertools_impl.h \
@@ -510,8 +519,15 @@ debug/glslprogram.o: ../untitled/glslprogram.cpp ../untitled/glslprogram.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qutf8stringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringtokenizer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringbuilder.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qlist.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qiterator.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearraylist.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringlist.h \
@@ -534,8 +550,6 @@ debug/glslprogram.o: ../untitled/glslprogram.cpp ../untitled/glslprogram.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qset.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qhash.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnativeinterface.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qvariant.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdebug.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtextstream.h \
@@ -1119,6 +1133,15 @@ debug/glwidget.o: ../untitled/glwidget.cpp ../untitled/glwidget.h \
 		../untitled/glm/ext/vector_uint1_sized.hpp \
 		../untitled/glm/gtc/type_ptr.inl \
 		../untitled/glslprogram.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglglobal.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglexports.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
 		../untitled/geometry.h \
 		../untitled/texture2d.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/QFile \
@@ -1515,6 +1538,13 @@ debug/main.o: ../untitled/main.cpp F:/qt/6.4.0/mingw_64/include/QtWidgets/QAppli
 		../untitled/glm/ext/vector_uint1_sized.hpp \
 		../untitled/glm/gtc/type_ptr.inl \
 		../untitled/glslprogram.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
 		../untitled/geometry.h \
 		../untitled/texture2d.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\untitled\main.cpp
@@ -1522,9 +1552,9 @@ debug/main.o: ../untitled/main.cpp F:/qt/6.4.0/mingw_64/include/QtWidgets/QAppli
 debug/primitives.o: ../untitled/primitives.cpp ../untitled/primitives.h \
 		../untitled/geometry.h \
 		../untitled/glslprogram.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QOpenGLFunctions \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglfunctions.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig-bootstrapped.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig.h \
@@ -1549,25 +1579,27 @@ debug/primitives.o: ../untitled/primitives.cpp ../untitled/primitives.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnumeric.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qversiontagging.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qforeach.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtgui-config.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiexports.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglexports.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnamespace.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtmetamacros.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstring.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qchar.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearray.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qrefcount.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydata.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydatapointer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydataops.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qcontainertools_impl.h \
@@ -1580,8 +1612,15 @@ debug/primitives.o: ../untitled/primitives.cpp ../untitled/primitives.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qutf8stringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringtokenizer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringbuilder.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qlist.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qiterator.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearraylist.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringlist.h \
@@ -1604,8 +1643,6 @@ debug/primitives.o: ../untitled/primitives.cpp ../untitled/primitives.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qset.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qhash.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnativeinterface.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qvariant.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdebug.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtextstream.h \
@@ -1828,9 +1865,9 @@ debug/primitives.o: ../untitled/primitives.cpp ../untitled/primitives.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\primitives.o ..\untitled\primitives.cpp
 
 debug/texture2d.o: ../untitled/texture2d.cpp ../untitled/texture2d.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QOpenGLFunctions \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglfunctions.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLFunctions_4_5_Core \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglfunctions_4_5_core.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig-bootstrapped.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qconfig.h \
@@ -1855,25 +1892,27 @@ debug/texture2d.o: ../untitled/texture2d.cpp ../untitled/texture2d.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnumeric.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qversiontagging.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qforeach.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiglobal.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtgui-config.h \
 		F:/qt/6.4.0/mingw_64/include/QtGui/qtguiexports.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qtopenglexports.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionProfile \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionprofile.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnamespace.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtmetamacros.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qobjectdefs_impl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/QPair \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstring.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qchar.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearray.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qrefcount.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydata.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qpair.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydatapointer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qarraydataops.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qcontainertools_impl.h \
@@ -1886,8 +1925,15 @@ debug/texture2d.o: ../untitled/texture2d.cpp ../untitled/texture2d.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qutf8stringview.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringtokenizer.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringbuilder.h \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/QOpenGLVersionFunctions \
+		F:/qt/6.4.0/mingw_64/include/QtOpenGL/qopenglversionfunctions.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengl.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qt_windows.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopengles2ext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglext.h \
+		F:/qt/6.4.0/mingw_64/include/QtGui/qopenglcontext.h \
+		F:/qt/6.4.0/mingw_64/include/QtCore/qobject.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qlist.h \
-		F:/qt/6.4.0/mingw_64/include/QtCore/qhashfunctions.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qiterator.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qbytearraylist.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qstringlist.h \
@@ -1910,8 +1956,6 @@ debug/texture2d.o: ../untitled/texture2d.cpp ../untitled/texture2d.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qset.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qhash.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qnativeinterface.h \
-		F:/qt/6.4.0/mingw_64/include/QtGui/QSurfaceFormat \
-		F:/qt/6.4.0/mingw_64/include/QtGui/qsurfaceformat.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qvariant.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qdebug.h \
 		F:/qt/6.4.0/mingw_64/include/QtCore/qtextstream.h \
