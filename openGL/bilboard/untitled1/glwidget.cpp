@@ -27,7 +27,7 @@ void GLWidget::createShaders()
     if (!stat) qFatal("Some problem with shader!");
 
     shaders["tex"] = new GLSLProgram;
-    stat = shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.vert", GL_VERTEX_SHADER);
+    stat = shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard.vert", GL_VERTEX_SHADER);
     stat &= shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
     stat &= shaders["tex"]->link();
     if (!stat) qFatal("Some problem with shader!");
@@ -143,7 +143,9 @@ void GLWidget::processCamera()
 
 void GLWidget::paintGL()
 {
-    glClearColor(0.3, 0.3, 0.3, 1.0);
+    glEnable(GL_BLEND); //Enable blending.
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 

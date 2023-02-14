@@ -36,6 +36,7 @@ DISTFILES += \
     basic.vert \
     shaders/basic.frag \
     shaders/basic.vert \
+    shaders/billboard.vert \
     shaders/tex_basic.frag \
     shaders/tex_basic.vert \
     tex_basic.frag \

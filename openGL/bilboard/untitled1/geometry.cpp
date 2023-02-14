@@ -24,6 +24,11 @@ void Geometry::render()
     glBindVertexArray(vao);
     if(n_indices)
     {
+        // postolajet wklucit prozrasznost --------------------
+        glEnable(GL_BLEND); //Enable blending.
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //----------------------------------
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
         glDrawElements(primitiveMode, n_indices, GL_UNSIGNED_INT, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
