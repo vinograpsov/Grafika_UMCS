@@ -498,7 +498,10 @@ Geometry *newSphereLineGeometry(glm::vec3 size, glm::vec3 color, float radius, i
                 {
                     pos.push_back(points[k1] + origin);
                     pos.push_back(points[k2] + origin);
+                    pos.push_back(points[k2] + origin);
                     pos.push_back(points[k1 + 1] + origin);
+                    pos.push_back(points[k1 + 1] + origin);
+                    pos.push_back(points[k1] + origin);
                 }
 
                 // k1+1 => k2 => k2+1
@@ -506,7 +509,10 @@ Geometry *newSphereLineGeometry(glm::vec3 size, glm::vec3 color, float radius, i
                 {
                     pos.push_back(points[k1 + 1] + origin);
                     pos.push_back(points[k2] + origin);
+                    pos.push_back(points[k2] + origin);
                     pos.push_back(points[k2 + 1] + origin);
+                    pos.push_back(points[k2 + 1] + origin);
+                    pos.push_back(points[k1 + 1] + origin);
                 }
             }
         }
