@@ -21,14 +21,14 @@ void GLWidget::createShaders()
     bool stat;
 
     shaders["basic"] = new GLSLProgram;
-    stat = shaders["basic"]->compileShaderFromFile("C:/Users/KirVin/Desktop/проекты денковского/gl_tex_basics (2)/gl_tex_basics/shaders/basic.vert", GL_VERTEX_SHADER);
-    stat &= shaders["basic"]->compileShaderFromFile("C:/Users/KirVin/Desktop/проекты денковского/gl_tex_basics (2)/gl_tex_basics/shaders/basic.frag", GL_FRAGMENT_SHADER);
+    stat = shaders["basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/basic.vert", GL_VERTEX_SHADER);
+    stat &= shaders["basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/basic.frag", GL_FRAGMENT_SHADER);
     stat &= shaders["basic"]->link();
     if (!stat) qFatal("Some problem with shader!");
 
     shaders["tex"] = new GLSLProgram;
-    stat = shaders["tex"]->compileShaderFromFile("C:/Users/KirVin/Desktop/проекты денковского/gl_tex_basics (2)/gl_tex_basics/shaders/tex_basic.vert", GL_VERTEX_SHADER);
-    stat &= shaders["tex"]->compileShaderFromFile("C:/Users/KirVin/Desktop/проекты денковского/gl_tex_basics (2)/gl_tex_basics/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
+    stat = shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.vert", GL_VERTEX_SHADER);
+    stat &= shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
     stat &= shaders["tex"]->link();
     if (!stat) qFatal("Some problem with shader!");
 }
@@ -43,8 +43,6 @@ void GLWidget::createGeometry()
     geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 4);
     geometryMat["earth"] = identity();
 
-    geometry["earth_axes"] = newAxesGeometry();
-    geometryMat["earth_axes"] = identity();
 }
 
 void GLWidget::createTextures()
@@ -54,9 +52,6 @@ void GLWidget::createTextures()
     stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
     if (!stat) qFatal("Some problem with texture!");
 
-    textures["clouds"] = new Texture2D();
-    stat = textures["clouds"]->loadFromFile("C:/Users/KirVin/Downloads/clouds2.png");
-    if (!stat) qFatal("Some problem with texture!");
 }
 
 void GLWidget::initializeGL()
@@ -167,34 +162,16 @@ void GLWidget::paintGL()
     int tex_unit_wood = 1;
     textures["wood"]->bind(tex_unit_wood);
 
-    // wlaczenie tekstury 'clouds' w drugiej jednostce teksturujacej
-    int tex_unit_clouds = 2;
-    textures["clouds"]->bind(tex_unit_clouds);
 
-    //transformacja earth
-    glm::mat4 R_orb     = glm::rotate(identity(), earth_obrit_angle, glm::vec3(0.0f,0.0f,1.0f));
-    glm::mat4 R_rot     = glm::rotate(identity(), earth_rotate_angle, glm::vec3(0.0f,0.0f,1.0f));
-    frames["earth"].pos = R_orb * glm::vec4(0.75,0.0,0.0,1.0);
-    frames["earth"].up = R_rot * glm::vec4(0.0,1.0,0.0,1.0);
-    MVMat = viewMat * frames["earth"].matrix() * geometryMat["earth"];
+    MVMat = viewMat * geometryMat["earth"];
 
     //render earth shaderem 'tex'
     shaders["tex"]->use();
     shaders["tex"]->setUniform("MVMat", MVMat);
     shaders["tex"]->setUniform("ProjMat", projMat);
     shaders["tex"]->setUniform("SamplerTex_1", tex_unit_wood);
-    shaders["tex"]->setUniform("SamplerTex_2", tex_unit_clouds);
     geometry["earth"]->render();
 
-    //narysowanie osi earth shaderem 'basic'
-    shaders["basic"]->use();
-    shaders["basic"]->setUniform("MVMat", MVMat);
-    shaders["basic"]->setUniform("ProjMat", projMat);
-    geometry["earth_axes"]->render();
-
-
-    earth_obrit_angle  += glm::radians(0.1f);
-    earth_rotate_angle += glm::radians(1.0f);
 
     frame++;
     PRINT_GL_ERRORS("Widget::paintGL(): ");
