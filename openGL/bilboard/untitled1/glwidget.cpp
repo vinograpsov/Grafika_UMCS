@@ -20,37 +20,88 @@ void GLWidget::createShaders()
 {
     bool stat;
 
+    // --------------shader to drowing ax --------------
     shaders["basic"] = new GLSLProgram;
     stat = shaders["basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/basic.vert", GL_VERTEX_SHADER);
     stat &= shaders["basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/basic.frag", GL_FRAGMENT_SHADER);
     stat &= shaders["basic"]->link();
     if (!stat) qFatal("Some problem with shader!");
+    // --------------shader to drowing ax --------------
 
-    shaders["tex"] = new GLSLProgram;
-    stat = shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard.vert", GL_VERTEX_SHADER);
-    stat &= shaders["tex"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
-    stat &= shaders["tex"]->link();
+    // ------------- shader to billboard on xz rotation ------
+    shaders["bilboard_xz"] = new GLSLProgram;
+    stat = shaders["bilboard_xz"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard.vert", GL_VERTEX_SHADER);
+    stat &= shaders["bilboard_xz"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard.frag", GL_FRAGMENT_SHADER);
+    stat &= shaders["bilboard_xz"]->link();
     if (!stat) qFatal("Some problem with shader!");
+    // ------------- shader to billboard on xz rotation ------
+
+    // ------------- shader to billboard on xyz rotation ------
+    shaders["bilboard_xyz"] = new GLSLProgram;
+    stat = shaders["bilboard_xyz"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard_xyz.vert", GL_VERTEX_SHADER);
+    stat &= shaders["bilboard_xyz"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard_xyz.frag", GL_FRAGMENT_SHADER);
+    stat &= shaders["bilboard_xyz"]->link();
+    if (!stat) qFatal("Some problem with shader!");
+    // ------------- shader to billboard on xyz rotation ------
+
 }
 
 void GLWidget::createGeometry()
 {
+
+    // --- axis geometry ----
     geometry["main_axes"] = newAxesGeometry();
     geometryMat["main_axes"] = identity();
+    // --- axis geometry ----
 
-    geometry["earth"] = newPlaneGeometry({1,1}, {1,1,1});
-    glm::vec2 plane_uv[] = { {0,0}, {0,1}, {1,1}, {1,0}};
-    geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 4);
-    geometryMat["earth"] = identity();
+
+    // --- first_billboard geometry ----
+    geometry["first_billboard"] = newPlaneGeometry({1,1}, {1,1,1});
+    glm::vec2 plane_uv1[] = { {0,0}, {0,1}, {1,1}, {1,0}};
+    geometry["first_billboard"]->setAttribute((int)Attributes::uv1, plane_uv1, 4);
+    geometryMat["first_billboard"] = identity();
+    // --- first_billboard geometry ----
+
+
+    // --- second_billboard geometry ----
+    geometry["second_billboard"] = newPlaneGeometry({1,1}, {1,1,1});
+    glm::vec2 plane_uv2[] = { {0,0}, {0,1}, {1,1}, {1,0}};
+    geometry["second_billboard"]->setAttribute((int)Attributes::uv1, plane_uv2, 4);
+    geometryMat["second_billboard"] = identity();
+    frames["second_billboard"] = Frame();
+    // --- second_billboard geometry ----
+
 
 }
 
 void GLWidget::createTextures()
 {
+
     bool stat;
-    textures["wood"] = new Texture2D();
-    stat = textures["wood"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
+
+    // ------------loading bart simpson texture--------------
+    textures["bart"] = new Texture2D();
+    stat = textures["bart"]->loadFromFile("C:/Users/KirVin/Downloads/pngimg.com - simpsons_PNG95.png");
     if (!stat) qFatal("Some problem with texture!");
+    // ------------loading bart simpson texture---------------
+
+    // ------------loading grass texture--------------
+    textures["grass"] = new Texture2D();
+    stat = textures["grass"]->loadFromFile("C:/Users/KirVin/Downloads/grass.png");
+    if (!stat) qFatal("Some problem with texture!");
+    // ------------loading grass texture---------------
+
+    // ------------loading openglcaca texture--------------
+    textures["openglcaca"] = new Texture2D();
+    stat = textures["openglcaca"]->loadFromFile("C:/Users/KirVin/Downloads/openglcaca.png");
+    if (!stat) qFatal("Some problem with texture!");
+    // ------------loading openglcaca texture---------------
+
+    // ------------loading openglpinky texture--------------
+    textures["openglpinky"] = new Texture2D();
+    stat = textures["openglpinky"]->loadFromFile("C:/Users/KirVin/Downloads/openglpinky.png");
+    if (!stat) qFatal("Some problem with texture!");
+    // ------------loading openglpinky texture---------------
 
 }
 
@@ -135,6 +186,12 @@ void GLWidget::processCamera()
         mainCamera.pos = mainCamera.pos + dv*mainCamera.up;
     }
 
+    // made camera go down
+    if(keys.contains(Qt::Key_Control))
+    {
+        mainCamera.pos = mainCamera.pos + dv*(-mainCamera.up);
+    }
+
     glm::vec4 camera_init_forward = glm::normalize(glm::vec4(0,0,-1,1));
     mainCamera.forward = glm::rotate(identity(), mouse_move_pos.x()/400.0f, glm::vec3(0.0f,1.0f,0.0f)) * camera_init_forward;
     glm::vec3 sx = glm::normalize(mainCamera.s());
@@ -154,25 +211,52 @@ void GLWidget::paintGL()
 
     glm::mat4 MVMat;
 
-    //narysowanie osi globalnych shaderem 'basic'
+
+    // ----- texture binding -------
+    int pinky_tex = 1;
+    int caca_tex = 2;
+    int bart_tex = 3;
+    int grass_tex = 4;
+
+    textures["openglpinky"]->bind(pinky_tex);
+    textures["openglcaca"]->bind(caca_tex);
+    textures["grass"]->bind(bart_tex);
+    textures["bart"]->bind(grass_tex);
+    // ----- texture binding -------
+
+
+
+    // ----- rendering axis with basic shader -----------
     shaders["basic"]->use();
     shaders["basic"]->setUniform("MVMat", viewMat);
     shaders["basic"]->setUniform("ProjMat", projMat);
     geometry["main_axes"]->render();
-
-    // wlaczenie tekstury 'wood' w pierwszej jednostce teksturujacej
-    int tex_unit_wood = 1;
-    textures["wood"]->bind(tex_unit_wood);
+    // ----- rendering axis with basic shader -----------
 
 
-    MVMat = viewMat * geometryMat["earth"];
+    // ---- rendering first_billboard on xz rotation ------
+    MVMat = viewMat * geometryMat["first_billboard"];
+    shaders["bilboard_xz"]->use();
+    shaders["bilboard_xz"]->setUniform("MVMat", MVMat);
+    shaders["bilboard_xz"]->setUniform("ProjMat", projMat);
+    shaders["bilboard_xz"]->setUniform("SamplerTex_1", pinky_tex);
+    geometry["first_billboard"]->render();
+    // ---- rendering first_billboard on xz rotation ------
 
-    //render earth shaderem 'tex'
-    shaders["tex"]->use();
-    shaders["tex"]->setUniform("MVMat", MVMat);
-    shaders["tex"]->setUniform("ProjMat", projMat);
-    shaders["tex"]->setUniform("SamplerTex_1", tex_unit_wood);
-    geometry["earth"]->render();
+
+    // ---- rendering second_billboard on xz rotation -----
+    shaders["bilboard_xz"]->use();
+
+    // making position of object
+    frames["second_billboard"].pos = glm::vec4(1.0,0.0,1.0,1.0);
+    MVMat = viewMat * geometryMat["second_billboard"] * frames["second_billboard"].matrix();
+
+    shaders["bilboard_xz"]->setUniform("MVMat", MVMat);
+    shaders["bilboard_xz"]->setUniform("ProjMat", projMat);
+    shaders["bilboard_xz"]->setUniform("SamplerTex_1", caca_tex);
+    geometry["second_billboard"]->render();
+    // ---- rendering second_billboard on xz rotation ------
+
 
 
     frame++;

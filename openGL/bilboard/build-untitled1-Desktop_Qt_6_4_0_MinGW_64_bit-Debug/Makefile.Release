@@ -69,7 +69,10 @@ DIST          = basic.frag \
 		basic.vert \
 		shaders/basic.frag \
 		shaders/basic.vert \
+		shaders/billboard.frag \
 		shaders/billboard.vert \
+		shaders/billboard_xyz.frag \
+		shaders/billboard_xyz.vert \
 		shaders/tex_basic.frag \
 		shaders/tex_basic.vert \
 		tex_basic.frag \
