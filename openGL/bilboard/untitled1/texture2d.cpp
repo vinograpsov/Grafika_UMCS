@@ -25,12 +25,13 @@ bool Texture2D::loadFromFile(QString filename)
     if( !image.isNull() )
     {
         bind(0);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
                      image.width(), image.height(),
                      0,
                      GL_BGRA, GL_UNSIGNED_BYTE,
                      image.bits());
         glGenerateMipmap(GL_TEXTURE_2D);
+        // poczemu nie rabotajet GL_RGBA xz
         unbind();
         return true;
     }

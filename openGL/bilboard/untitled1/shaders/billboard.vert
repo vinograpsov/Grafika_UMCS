@@ -24,6 +24,14 @@ void main()
   modelView[0][1] = 0.0;
   modelView[0][2] = 0.0;
 
+
+//  //second for super transformation
+//  modelView[1][0] = 0.0;
+//  modelView[1][1] = 1.0;
+//  modelView[1][2] = 0.0;
+
+
+
   // Thrid colunm.
   modelView[2][0] = 0.0;
   modelView[2][1] = 0.0;

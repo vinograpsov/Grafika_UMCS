@@ -25,8 +25,8 @@ void Geometry::render()
     if(n_indices)
     {
         // postolajet wklucit prozrasznost --------------------
-        glEnable(GL_BLEND); //Enable blending.
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//        glEnable(GL_BLEND); //Enable blending.
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //----------------------------------
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);

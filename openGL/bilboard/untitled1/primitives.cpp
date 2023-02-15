@@ -18,7 +18,7 @@ Geometry *newPlaneGeometry(glm::vec2 size, glm::vec3 color)
     Geometry* geometry = new Geometry();
     {
         geometry->setPrimitiveMode(GL_TRIANGLES);
-        glm::vec3 verts[]  = { {-size.x,-size.y,0}, {-size.x,size.y,0}, {size.x,size.y,0}, {size.x,-size.y,0}};
+        glm::vec3 verts[]  = {{size.x,size.y,0}, {size.x,-size.y,0},{-size.x,-size.y,0}, {-size.x,size.y,0}};
         glm::vec3 colors[] = { color, color, color, color};
         uint indices[] = {0,1,2,2,3,0};
         geometry->setIndices(indices, 6);
