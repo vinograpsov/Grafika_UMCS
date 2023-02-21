@@ -28,6 +28,15 @@ void GLWidget::createShaders()
     if (!stat) qFatal("Some problem with shader!");
     // --------------shader to drowing ax --------------
 
+
+    // --------------tex_basic to drowing ax --------------
+    shaders["tex_basic"] = new GLSLProgram;
+    stat = shaders["tex_basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.vert", GL_VERTEX_SHADER);
+    stat &= shaders["tex_basic"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/tex_basic.frag", GL_FRAGMENT_SHADER);
+    stat &= shaders["tex_basic"]->link();
+    if (!stat) qFatal("Some problem with shader!");
+    // --------------tex_basic to drowing ax --------------
+
     // ------------- shader to billboard on xz rotation ------
     shaders["bilboard_xz"] = new GLSLProgram;
     stat = shaders["bilboard_xz"]->compileShaderFromFile("F:/uniwesitet/5 сем/grafika/openGL/bilboard/untitled1/shaders/billboard.vert", GL_VERTEX_SHADER);
@@ -72,6 +81,36 @@ void GLWidget::createGeometry()
     // --- second_billboard geometry ----
 
 
+    // --- skybox geometry ----
+    geometry["skybox"] = newBoxGeometry({3,3,3}, {1,1,1});
+    geometryMat["skybox"] = identity();
+    // --- skybox geometry ----
+
+
+
+    // --- grass geometry ---
+    geometry["grass_obj"] = newGrassGeometry({1,1,1}, {1,1,1});
+    geometryMat["grass_obj"] = identity();
+    frames["grass_obj"] = Frame();
+    // --- grass geometry ---
+
+
+
+
+    // ----- sphere lines ---
+    geometry["spehre_lines"] = newSphereLineGeometry({1,1,1},{1,1,1},1,10,10);
+    geometryMat["spehre_lines"] = identity();
+    frames["spehre_lines"] = Frame();
+    // -- sphere lines ---
+
+
+    //------ filled shpeher ------
+    geometry["sphere"] = newSphereGeometry({1,1,1},{1,1,1},1,10,10);
+    geometryMat["sphere"] = identity();
+    frames["sphere"] = Frame();
+    //------ filled shpeher ------
+
+
 }
 
 void GLWidget::createTextures()
@@ -102,6 +141,13 @@ void GLWidget::createTextures()
     stat = textures["openglpinky"]->loadFromFile("C:/Users/KirVin/Downloads/openglpinky.png");
     if (!stat) qFatal("Some problem with texture!");
     // ------------loading openglpinky texture---------------
+
+
+    // ------------loading doom_skybox texture--------------
+    textures["doom_skybox"] = new Texture2D();
+    stat = textures["doom_skybox"]->loadFromFile("C:/Users/KirVin/Downloads/doom_skybox.png");
+    if (!stat) qFatal("Some problem with texture!");
+    // ------------loading doom_skybox texture---------------
 
 }
 
@@ -217,11 +263,13 @@ void GLWidget::paintGL()
     int caca_tex = 2;
     int bart_tex = 3;
     int grass_tex = 4;
+    int doom_skybox_tex = 5;
 
     textures["openglpinky"]->bind(pinky_tex);
     textures["openglcaca"]->bind(caca_tex);
     textures["grass"]->bind(bart_tex);
     textures["bart"]->bind(grass_tex);
+    textures["doom_skybox"]->bind(doom_skybox_tex);
     // ----- texture binding -------
 
 
@@ -245,17 +293,73 @@ void GLWidget::paintGL()
 
 
     // ---- rendering second_billboard on xz rotation -----
-    shaders["bilboard_xz"]->use();
+    shaders["bilboard_xyz"]->use();
 
     // making position of object
     frames["second_billboard"].pos = glm::vec4(1.0,0.0,1.0,1.0);
     MVMat = viewMat * geometryMat["second_billboard"] * frames["second_billboard"].matrix();
 
-    shaders["bilboard_xz"]->setUniform("MVMat", MVMat);
-    shaders["bilboard_xz"]->setUniform("ProjMat", projMat);
+    shaders["bilboard_xyz"]->setUniform("MVMat", MVMat);
+    shaders["bilboard_xyz"]->setUniform("ProjMat", projMat);
     shaders["bilboard_xz"]->setUniform("SamplerTex_1", caca_tex);
     geometry["second_billboard"]->render();
     // ---- rendering second_billboard on xz rotation ------
+
+
+    // ----- sphere lines ---
+    frames["spehre_lines"].pos = glm::vec4(6.0,0.0,1.0,1.0);
+    MVMat = viewMat * geometryMat["spehre_lines"] * frames["spehre_lines"].matrix();
+    shaders["basic"]->use();
+    shaders["basic"]->setUniform("MVMat", MVMat);
+    shaders["basic"]->setUniform("ProjMat", projMat);
+
+    geometry["spehre_lines"]->render();
+    // -- sphere lines ---
+
+
+//    //------ filled shpeher ------
+    frames["sphere"].pos = glm::vec4(10.0,0.0,1.0,1.0);
+    MVMat = viewMat * geometryMat["sphere"] * frames["sphere"].matrix();
+    shaders["tex_basic"]->use();
+    shaders["tex_basic"]->setUniform("MVMat", MVMat);
+    shaders["tex_basic"]->setUniform("ProjMat", projMat);
+    shaders["tex_basic"]->setUniform("SamplerTex_1", doom_skybox_tex);
+    geometry["sphere"]->render();
+//    //------ filled shpeher ------
+
+
+
+
+
+
+    // ---- sky box ------
+    MVMat = viewMat;
+    shaders["tex_basic"]->use();
+    shaders["tex_basic"]->setUniform("MVMat", MVMat);
+    shaders["tex_basic"]->setUniform("SamplerTex_1", doom_skybox_tex);
+    shaders["tex_basic"]->setUniform("ProjMat", projMat);
+    geometry["skybox"]->render();
+    // ---- skybox ------
+
+
+
+
+
+//    // ---------------try to make grass---------------
+//    shaders["basic"]->use();
+
+//    frames["grass_obj"].pos = glm::vec4(1.0,0.0,0.0,1.0);
+//    MVMat = viewMat * geometryMat["grass_obj"] * frames["grass_obj"].matrix();
+
+//    shaders["basic"]->setUniform("MVMat", viewMat);
+//    shaders["basic"]->setUniform("ProjMat", projMat);
+//    geometry["grass_obj"]->render();
+
+//    shaders["basic"]->setUniform("SamplerTex_1", grass_tex);
+
+//    geometry["grass_obj"]->render();
+//    // ---------------try to make grass---------------
+
 
 
 

@@ -1,1 +1,0 @@
-![bezier-curves-example](../images/bezier-curves.png)

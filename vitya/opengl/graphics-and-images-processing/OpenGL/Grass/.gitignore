@@ -1,6 +1,0 @@
-dependencies
-output
-
-!*.cpp
-!*.shader
-!*.jpg

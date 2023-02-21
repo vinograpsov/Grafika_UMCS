@@ -85,70 +85,44 @@ Geometry* newBoxGeometry(glm::vec3 size, glm::vec3 color)
 
 // -----------------------------------------------------
 
-//        it=0;
+        it=0;
 //        // sciana zfront
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 1.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-
-
-//        // sciana xight
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-
-//        // sciana zack
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 0.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-
-////-------------------
-//        // sciana zfront
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 2.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 0.0f/3.0f, 2.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 2.0f/2.0f};
-
-
-//        // sciana xight
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 2.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 2.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f,2.0f/2.0f};
-
-//        // sciana zack
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 2.0f/2.0f};
-
-
-//        uv[it++] = glm::vec2{ 1.0f/3.0f, 2.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 1.0f/2.0f};
-//        uv[it++] = glm::vec2{ 2.0f/3.0f, 2.0f/2.0f};
-
+        uv[it++] = glm::vec2{0.000059f, 1.0f-0.000004f};
+        uv[it++] = glm::vec2{0.000103f, 1.0f-0.336048f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{1.000023f, 1.0f-0.000013f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.999958f, 1.0f-0.336064f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.336024f, 1.0f-0.671877f};
+        uv[it++] = glm::vec2{0.667969f, 1.0f-0.671889f};
+        uv[it++] = glm::vec2{1.000023f, 1.0f-0.000013f};
+        uv[it++] = glm::vec2{0.668104f, 1.0f-0.000013f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.000059f, 1.0f-0.000004f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{0.336098f, 1.0f-0.000071f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{0.336024f, 1.0f-0.671877f};
+        uv[it++] = glm::vec2{1.000004f, 1.0f-0.671847f};
+        uv[it++] = glm::vec2{0.999958f, 1.0f-0.336064f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.668104f, 1.0f-0.000013f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{0.668104f, 1.0f-0.000013f};
+        uv[it++] = glm::vec2{0.336098f, 1.0f-0.000071f};
+        uv[it++] = glm::vec2{0.000103f, 1.0f-0.336048f};
+        uv[it++] = glm::vec2{0.000004f, 1.0f-0.671870f};
+        uv[it++] = glm::vec2{0.336024f, 1.0f-0.671877f};
+        uv[it++] = glm::vec2{0.000103f, 1.0f-0.336048f};
+        uv[it++] = glm::vec2{0.336024f, 1.0f-0.671877f};
+        uv[it++] = glm::vec2{0.335973f, 1.0f-0.335903f};
+        uv[it++] = glm::vec2{0.667969f, 1.0f-0.671889f};
+        uv[it++] = glm::vec2{1.000004f, 1.0f-0.671847f};
+        uv[it++] = glm::vec2{0.667979f, 1.0f-0.335851f};
 
 //        float i_ = 2.0f;
 //        float j_= 3.0f;
@@ -172,7 +146,7 @@ Geometry* newBoxGeometry(glm::vec3 size, glm::vec3 color)
             colors[i] = color;
         geometry->setVertices((int)Attributes::position, pos.data(), n);
         geometry->setAttribute((int)Attributes::color, colors.data(), n);
-//        geometry->setAttribute((int)Attributes::uv1,uv.data(),36);
+        geometry->setAttribute((int)Attributes::uv1,uv.data(),36);
 
         it=0;
         indices[it++] = 0;    indices[it++] = 1;    indices[it++] = 2;    indices[it++] = 0;    indices[it++] = 2;    indices[it++] = 3;

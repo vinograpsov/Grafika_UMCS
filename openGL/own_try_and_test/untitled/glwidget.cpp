@@ -45,11 +45,21 @@ void GLWidget::createGeometry()
 
 
 
-    geometry["earth"] = newSphereLineGeometry({1,1,1},{1,1,0},1,10,10);/*
-    glm::vec3 plane_uv[] = { {1,0,0}, {1,1,0}, {1,1,1}, {1,1,0},
-                             {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
-    geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);*/
+//    geometry["earth"] = newSphereLineGeometry({1,1,1},{1,1,0},1,10,10);/*
+//    glm::vec3 plane_uv[] = { {1,0,0}, {1,1,0}, {1,1,1}, {1,1,0},
+//                             {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
+//    geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);*/
+//    geometryMat["earth"] = identity();
+
+
+    geometry["earth"] = newBoxGeometry({1,1,1},{1,1,1});
+//    glm::vec3 plane_uv[] = {{1,0,0}, {1,1,0}, {1,1,1}, {1,1,0},
+//                           {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1},
+//                           {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1},
+//                           {1,0,0}, {1,0,1}, {1,1,1}, {0,1,1}};
+//    geometry["earth"]->setAttribute((int)Attributes::uv1, plane_uv, 8);
     geometryMat["earth"] = identity();
+
 
 
     geometry["earth_axes"] = newAxesGeometry();
